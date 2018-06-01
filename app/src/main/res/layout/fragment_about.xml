@@ -1,0 +1,46 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_transparent"
+    tools:context="ir.farsirib.Fragment.AboutFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:textSize="22sp"
+        android:gravity="center"
+        android:id="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:textColor="#FFFF00"
+        android:text="اپلیکیشن جامع صدا و سیمای مرکز فارس"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:textSize="22sp"
+        android:gravity="center"
+        android:id="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textView1"
+        android:textColor="#FFFF00"
+        android:text="تهیه شده در مدیریت فن آوری اطلاعات"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:autoLink="web"
+        android:textSize="22sp"
+        android:layout_marginTop="150dp"
+        android:layout_centerHorizontal="true"
+        android:text="it@fars.irib.ir"
+        android:textColor="#FFFF00"
+        android:layout_below="@+id/textView2"
+        android:textStyle="italic"
+        />
+
+
+</FrameLayout>

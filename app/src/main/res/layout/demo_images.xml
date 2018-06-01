@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ir.farsirib.utils.UICircularImage
+            android:id="@+id/imageView11"
+            android:layout_width="100dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="10dp"
+            app:line_color="#ffffff"
+            app:line_color_press="@color/green"
+            app:line_width="2dp" />
+
+            <ir.farsirib.CustomWidgets.MyTextView
+                android:id="@+id/txt_title"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageView11"
+                android:text="Test"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:textColor="#000000" />
+    </RelativeLayout>
+</FrameLayout>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="window_icon">Window icon</string>
+    <string name="hide">Hide</string>
+    <string name="close">Close</string>
+    <string name="corner">Corner</string>
+    <string name="maximize">Maximize</string>
+
+    <string name="app_name">شبکه فارس</string>
+    <string name="title_activity_detail_view">DetailView</string>
+    <string name="button_placeholder_text">Button</string>
+    <string name="checkbox">CheckBox</string>
+    <string name="dashed_area_text">Cool information you might would like to know, that is why it is in this dashed area!</string>
+    <string name="show">Show</string>
+    <string name="show_dialog_text">Show a Custom Dialog and Loader</string>
+    <string name="text_input_hint">text input</string>
+
+    <string name="four">Four</string>
+    <string name="three">Three</string>
+    <string name="two">Two</string>
+    <string name="one">One</string>
+
+    <string name="off">Off</string>
+    <string name="on">On</string>
+
+    <string name="like">Like</string>
+    <string name="reply">Reply</string>
+
+    <string name="detail_title_placeholder">Cool Title Of Some Movie</string>
+    <string name="contact_placeholder">Super useful contact info here I guess.\n\nProfile image is from FreePik.com</string>
+    <string name="social_1_placeholder">4.8</string>
+    <string name="social_1_placeholder_nr">15</string>
+    <string name="sumary_placeholder">Summary</string>
+    <string name="description_placeholder">Description</string>
+    <string name="description_tab_1">Wall</string>
+    <string name="description_tab_2">Contact</string>
+    <string name="image_description">Image Description</string>
+    <string name="description_title_placeholder">Cool Title Of Some Movie</string>
+    <string name="social_2_placeholder">اشتراک گذاری</string>
+    <string name="social_3_placeholder">دانلود</string>
+    <string name="description">Media Controls</string>
+    <string name="app_title">فارس بر قله افتخار</string>
+    <string name="explore">Explore</string>
+    <string name="buy">"  Buy  "</string>
+    <string name="hidden_view_text">Click Me</string>
+    <string name="list_title_placeholder">Amazing Title</string>
+    <string name="list_description_placeholder">Cool Content Description of Item</string>
+    <string name="list_number_text_placeholder">Characters</string>
+    <string name="list_number_placeholder">27</string>
+    <string name="dialog_text_placeholder">گوشی شما به اینترنت دسترسی ندارد. لطفاً از روشن بودن دیتای گوشی و یا اتصال به شبکه وای فای اطمینان حاصل کنید.</string>
+    <string name="dialog_title_placeholder">خطای اتصال به اینترنت</string>
+    <string name="dialog_button_text">تلاش مجدد</string>
+    <string name="placeholder_views">16 Thousand</string>
+    <string name="views">Views</string>
+    <string name="followers_placeholder">503</string>
+    <string name="followers">Followers</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">بخش آخرین اخبار وبگاه خبرگزاری صدا و سیمای فارس به زودی راه اندازی می شود.</string>
+
+    <string name="lipsum">متن موجود نیست!</string>
+
+
+    <string name="item_1">آرشیو سیما </string>
+    <string name="item_2"> پخش زنده رادیو نما</string>
+    <string name="item_3">پخش زنده تلویزیون</string>
+    <string name="title_activity_tv_player">TvPlayerActivity</string>
+    <string name="title_activity_video_player">VideoPlayerActivity</string>
+
+    <string name="btnUploadToServer">بارگزاری فایل</string>
+    <string name="read_file">This app needs access to your file storage so that it can read video.</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_web_main_page">WebMainPageActivity</string>
+
+    <string name="item_fullscr">تمام صفحه </string>
+    <string name="item_shenavar"> شناور</string>
+
+</resources>

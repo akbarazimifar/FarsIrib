@@ -1,0 +1,49 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ir.farsirib.Fragment.FarsIribRelationshipFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_transparent"
+        >
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="#ffff00"
+        android:textSize="20dp"
+        android:text="روابط عمومی\n
+تلفن گویا: ۱۶۲      تلفن:۳۶۲۷۰۰۰۴\n
+پيامك:۳۰۰۰۰۷۱۱۱\n
+\n
+واحد سيما\n
+تلفن: ۳۶۲۷۵۱۲۲\n
+پيامك برنامه های خوشاشیراز و پزشک شما : ۳۰۰۰۷۱۱۲\n
+پیامک برنامه شب پارسی : ۳۰۰۰۰۷۱۱۸\n
+پیامک برنامه کاشانه مهر : ۳۰۰۰۰۷۱۱۹\n
+\n
+واحد صدا\n
+تلفن: ۳۶۲۸۳۱۲۱\n
+ارتباطات رادیو : ۳۶۲۸۹۵۰۰  و  ۳۶۲۸۹۴۰۰\n
+پيامك:۳۰۰۰۰۷۱۱۰\n
+\n
+واحد خبر\n
+تلفن :۳۲۱۱۱۴۱۶   و ۳۲۱۱۱۳۱۶\n
+نمابر : ۳۶۲۷۲۰۲۰\n
+پیامک : ۳۰۰۰۷۱۱۳\n
+واحد سايت\n
+تلفن: ۳۲۱۱۱۷۲۳\n
+\n
+نشانی صدا و سیمای مرکز فارس\n
+ایران  فارس  شیراز  بلوار جمهوری اسلامی\n
+کدپستی:   ۷۱۹۴۶۹۶۱۶۶\n
+\n
+تلفن:۳۶۲۷۰۰۰۱ (۰۷۱) (۹۸+)\n
+نمابر: ۳۶۲۹۳۰۵۰ (۰۷۱) (۹۸+)\n" />
+
+    </ScrollView>
+</FrameLayout>

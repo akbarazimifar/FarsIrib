@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+	android:fitsSystemWindows="true"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<ImageView
+                android:id="@+id/actionbar"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/image_description"
+                android:background="@color/bar_color_transparent" />
+            
+			<LinearLayout
+				android:layout_width="match_parent"
+              	android:layout_height="match_parent"
+				android:orientation="vertical">
+
+   				 <LinearLayout
+            		android:orientation="vertical"
+            		android:layout_width="fill_parent"
+            		android:layout_height="wrap_content"
+            		android:id="@+id/layout_top">
+
+     				<FrameLayout
+                		android:layout_width="fill_parent"
+                		android:layout_height="wrap_content">
+                
+            			<Button
+                    		android:layout_width="28dp"
+                    		android:layout_height="28dp"
+                    		android:background="@drawable/titlebar_menu_selector"
+                    		android:id="@+id/title_bar_left_menu"
+                    		android:layout_gravity="left|center_vertical"
+                    		android:layout_marginLeft="10dp"/>
+
+            			<TextView
+							android:id="@+id/header_title"
+                    		android:layout_width="wrap_content"
+                    		android:layout_height="wrap_content"
+                    		android:padding="7dp"
+                    		android:fontFamily="sans-serif-light" 
+                    		android:text="برنامه های سیما"
+                   			android:textSize="@dimen/textsize_large"
+                    		android:textColor="@android:color/white"
+                    		android:layout_gravity="center"/>        
+
+       				 </FrameLayout>
+
+        			<ImageView
+               			 android:layout_width="match_parent"
+                		 android:layout_height="5dp"
+                		 android:contentDescription="@string/image_description"
+                		 android:background="@color/bar_separator_color"/>
+
+					 <RelativeLayout
+						 android:layout_width="match_parent"
+						 android:layout_height="match_parent">
+
+						 <ir.farsirib.utils.UIParallaxScroll
+							 android:id="@+id/scroller"
+							 android:layout_width="match_parent"
+							 android:layout_height="match_parent"
+							 app:backgroundView="@+id/imageView"
+							 android:layout_marginBottom="80dp"
+							 android:fillViewport="true"
+							 >
+
+						 <FrameLayout
+							 android:id="@+id/main_fragment"
+							 android:layout_width="match_parent"
+							 android:layout_height="match_parent"
+							 android:animateLayoutChanges="true"
+							 android:layout_above="@+id/navigation">
+
+						 </FrameLayout>
+</ir.farsirib.utils.UIParallaxScroll>
+						 <android.support.design.widget.BottomNavigationView
+							 android:id="@+id/navigation"
+							 android:layout_width="match_parent"
+							 android:layout_height="80dp"
+							 android:layout_alignParentBottom="true"
+							 android:background="@color/colorPrimary"
+							 app:itemIconTint="@color/color_states"
+							 app:itemTextColor="@color/color_states"
+							 app:menu="@menu/menu_bottom_navigation" />
+					 </RelativeLayout>
+
+				 </LinearLayout>
+			</LinearLayout>
+
+    			<!--<FrameLayout-->
+            		<!--android:layout_width="match_parent"-->
+            		<!--android:layout_height="wrap_content"-->
+            		<!--android:orientation="vertical"-->
+            		<!--android:id="@+id/main_fragment">-->
+    			<!--</FrameLayout>-->
+
+
+                <!--&lt;!&ndash;<RelativeLayout&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="80dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_gravity="bottom">&ndash;&gt;-->
+
+                    <!--<android.support.design.widget.BottomNavigationView-->
+                        <!--android:id="@+id/bottom_navigation_view"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignParentBottom="true"-->
+                        <!--app:itemBackground="@color/colorPrimaryDark"-->
+                        <!--app:itemIconTint="@color/color_states"-->
+                        <!--app:itemTextColor="@color/white"-->
+                        <!--app:menu="@menu/menu_bottom_navigation" />-->
+
+                <!--&lt;!&ndash;</RelativeLayout>&ndash;&gt;-->
+
+
+</RelativeLayout>

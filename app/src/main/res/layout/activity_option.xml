@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ir.farsirib.Activity.OptionActivity">
+
+
+    <FrameLayout
+        android:id="@+id/layout_top"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <ImageView
+            android:id="@+id/actionbar"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bar_color_transparent"
+            android:contentDescription="@string/image_description" />
+
+        <LinearLayout
+            android:id="@+id/layout_top1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/title_bar_left_menu"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/titlebar_menu_selector" />
+
+                <TextView
+                    android:id="@+id/header_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="sans-serif-light"
+                    android:padding="7dp"
+                    android:text="اپلیکیشن جامع مرکز فارس"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/textsize_large" />
+
+
+            </FrameLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/bar_separator_color"
+                android:contentDescription="@string/image_description" />
+
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+    <ir.farsirib.utils.UIParallaxScroll
+        android:id="@+id/scroller"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_top"
+        android:fillViewport="true"
+        app:backgroundView="@+id/imageView">
+
+        <FrameLayout
+            android:id="@+id/optionContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/layout_top"
+            android:orientation="vertical"></FrameLayout>
+    </ir.farsirib.utils.UIParallaxScroll>
+    <!--<android.support.design.widget.BottomNavigationView-->
+    <!--android:id="@+id/navigation"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="80dp"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:background="@color/colorPrimary"-->
+    <!--app:itemIconTint="@color/color_states"-->
+    <!--app:itemTextColor="@color/color_states"-->
+    <!--app:menu="@menu/menu_bottom_navigation"/>-->
+
+</RelativeLayout>

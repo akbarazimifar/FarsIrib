@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+    			xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/bg_layout"
+                tools:context="ir.farsirib.Activity.TransitionDetailActivity">
+
+
+     			<FrameLayout
+     				android:id="@+id/layout_top"
+                    android:layout_width="fill_parent"
+                	android:layout_height="wrap_content"
+                	android:fitsSystemWindows = "true"
+                	android:background="@color/bar_color">
+
+					<ImageView
+						android:id="@+id/actionbar"
+						android:layout_width="fill_parent"
+						android:layout_height="match_parent"
+						android:contentDescription="@string/image_description"
+						android:background="@color/bar_color_transparent" />
+
+					<LinearLayout
+						android:orientation="vertical"
+						android:layout_width="fill_parent"
+						android:layout_height="wrap_content"
+						android:id="@+id/layout_top1">
+
+						<FrameLayout
+							android:layout_width="fill_parent"
+							android:layout_height="wrap_content">
+
+							<Button
+								android:layout_width="28dp"
+								android:layout_height="28dp"
+								android:background="@drawable/titlebar_menu_selector"
+								android:id="@+id/title_bar_left_menu"
+								android:layout_gravity="left|center_vertical"
+								android:layout_marginLeft="10dp"/>
+
+							<TextView
+								android:id="@+id/header_title"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:padding="7dp"
+								android:fontFamily="sans-serif-light"
+								android:text=""
+								android:textSize="@dimen/textsize_large"
+								android:textColor="@android:color/white"
+								android:layout_gravity="center"/>
+
+
+						</FrameLayout>
+
+						<ImageView
+							android:layout_width="match_parent"
+							android:layout_height="5dp"
+							android:contentDescription="@string/image_description"
+							android:background="@color/bar_separator_color"/>
+
+
+					</LinearLayout>
+
+
+       			</FrameLayout>
+
+	<FrameLayout
+		android:id="@+id/transition_container"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_above="@+id/navigation"
+		android:animateLayoutChanges="true"
+		android:layout_below="@+id/layout_top">
+
+	</FrameLayout>
+
+	<android.support.design.widget.BottomNavigationView
+		android:id="@+id/navigation"
+		android:layout_width="match_parent"
+		android:layout_height="80dp"
+		android:layout_alignParentBottom="true"
+		android:background="@color/colorPrimary"
+		app:itemIconTint="@color/color_states"
+		app:itemTextColor="@color/color_states"
+		app:menu="@menu/menu_bottom_navigation"/>
+    
+</RelativeLayout>

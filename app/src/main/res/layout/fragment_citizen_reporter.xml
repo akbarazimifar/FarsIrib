@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows = "true"
+    tools:context="ir.farsirib.Fragment.CitizenReporterFragment">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bar_color_transparent"
+            android:id="@+id/layout_top1">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/header_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="7dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="شهروند خبرنگار"
+                    android:textSize="@dimen/textsize_large"
+                    android:textColor="@android:color/white"
+                    android:layout_gravity="center"/>
+            </FrameLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:contentDescription="@string/image_description"
+                android:background="@color/bar_separator_color"/>
+        </LinearLayout>
+
+    <!--</FrameLayout>-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/layout_top1">
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical">
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <ir.farsirib.CustomWidgets.MyTextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="10dp"
+                   android:background="#f27124"
+                   android:gravity="center"
+                   android:text="لطفا فیلم و یا عکس مورد نظر خود را انتخاب کنید"
+                   android:textColor="#FFFFFF"
+                   android:textSize="18dp" />
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:orientation="horizontal">
+
+               <ImageView
+                   android:id="@+id/image3"
+                   android:layout_width="120dp"
+                   android:layout_height="120dp"
+                   android:layout_margin="8dp"
+                   android:background="#02289a"
+                   android:src="@mipmap/ic_video" />
+
+               <ImageView
+                   android:id="@+id/image2"
+                   android:layout_width="120dp"
+                   android:layout_height="120dp"
+                   android:layout_margin="8dp"
+                   android:background="#02289a"
+                   android:src="@mipmap/ic_camera" />
+
+               <ImageView
+                   android:id="@+id/image1"
+                   android:layout_width="120dp"
+                   android:layout_height="120dp"
+                   android:layout_margin="8dp"
+                   android:background="#02289a"
+                   android:src="@mipmap/ic_folder" />
+
+           </LinearLayout>
+
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center">
+
+               <VideoView
+                   android:id="@+id/video_display"
+                   android:layout_width="120dp"
+                   android:layout_height="120dp"
+                   android:backgroundTint="#000000"
+                   android:layout_centerInParent="true" />
+
+               <ProgressBar
+                   android:id="@+id/upload_progress"
+                   android:layout_width="80dp"
+                   android:layout_height="80dp"
+                   android:visibility="gone" />
+
+               <ir.farsirib.CustomWidgets.MyTextView
+                   android:id="@+id/upload_txt"
+                   android:layout_width="80dp"
+                   android:layout_height="wrap_content"
+                   android:layout_below="@+id/upload_progress"
+                   android:gravity="center"
+                   android:text="در حال آپلود"
+                   android:textColor="#000000"
+                   android:visibility="gone" />
+
+          </RelativeLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical">
+
+               <android.support.design.widget.TextInputLayout
+                   android:id="@+id/title_news_layout"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="12dp"
+                   android:background="#d9d8da">
+
+                   <ir.farsirib.CustomWidgets.MyEditText
+                       android:id="@+id/title_news_text"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:gravity="right"
+                       android:hint="عنوان خبر"
+                       android:singleLine="true"
+                       android:textColorHighlight="#03ad9f"
+                       android:textColorHint="#03ad9f" />
+
+               </android.support.design.widget.TextInputLayout>
+
+               <android.support.design.widget.TextInputLayout
+                   android:id="@+id/news_layout"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="12dp"
+                   android:background="#d9d8da">
+
+                   <ir.farsirib.CustomWidgets.MyEditText
+                       android:id="@+id/news_text"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:gravity="right"
+                       android:hint="متن خبر"
+                       android:singleLine="true"
+                       android:textColorHighlight="#03ad9f"
+                       android:textColorHint="#03ad9f" />
+
+               </android.support.design.widget.TextInputLayout>
+
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical">
+
+               <ir.farsirib.CustomWidgets.MyTextView
+
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="10dp"
+                   android:background="#f27124"
+                   android:gravity="center"
+                   android:text="اطلاعات بیشتر (اختیاری)"
+                   android:textColor="#FFFFFF"
+                   android:textSize="18dp" />
+
+               <android.support.design.widget.TextInputLayout
+               android:id="@+id/name_layout"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_margin="12dp"
+               android:background="#d9d8da">
+
+               <ir.farsirib.CustomWidgets.MyEditText
+                   android:id="@+id/name_text"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:gravity="right"
+                   android:hint="نام و نام خانوادگی"
+                   android:singleLine="true"
+                   android:textColorHighlight="#03ad9f"
+                   android:textColorHint="#03ad9f" />
+           </android.support.design.widget.TextInputLayout>
+
+               <android.support.design.widget.TextInputLayout
+                   android:id="@+id/email_layout"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="12dp"
+                   android:background="#d9d8da">
+
+                   <ir.farsirib.CustomWidgets.MyEditText
+                       android:id="@+id/email_text"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:gravity="right"
+                       android:hint="رایانامه "
+                       android:singleLine="true"
+                       android:textColorHint="#03ad9f" />
+
+               </android.support.design.widget.TextInputLayout>
+
+               <android.support.design.widget.TextInputLayout
+                   android:id="@+id/tel_layout"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="12dp"
+                   android:background="#d9d8da">
+
+                   <ir.farsirib.CustomWidgets.MyEditText
+                       android:id="@+id/tel_text"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:gravity="right"
+                       android:hint="تلفن همراه "
+                       android:singleLine="true"
+                       android:textColorHint="#03ad9f" />
+
+               </android.support.design.widget.TextInputLayout>
+
+               <ir.farsirib.CustomWidgets.MyButton
+                   android:id="@+id/submit_bt"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="20dp"
+                   android:background="#f27124"
+                   android:gravity="center"
+                   android:padding="14dp"
+                   android:text="ارسال"
+                   android:textColor="#ffffff"
+                   android:textSize="26dp" />
+
+           </LinearLayout>
+
+       </LinearLayout>
+
+   </ScrollView>
+
+</RelativeLayout>

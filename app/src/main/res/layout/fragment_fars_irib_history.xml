@@ -1,0 +1,31 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ir.farsirib.Fragment.FarsIribHistoryFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_transparent"
+        >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="#ffff00"
+        android:textSize="18dp"
+        android:text="صدا :\n
+تاریخ شروع به کار رادیو:	 فروردین  ۱۳۲۹\n
+تاریخ افتتاح شبکه استانی صدا : 	۱۸  فروردین  ۱۳۷۵\n
+تاریخ افتتاح شبکه ۲۴ ساعته صدا : 	۲۱  فروردین  ۱۳۹۱\n
+
+\n
+سیما :\n
+تاریخ شروع به کار رسمی تلویزیون:  آبان  ۱۳۴۹\n
+تاریخ افتتاح شبکه استانی سیما :	 ۹ تیر   ۱۳۷۸\n
+تاریخ افتتاح شبکه  ۲۴ ساعته سیما : 	۱۹  اردیبهشت ۱۳۹۰\n" />
+
+    </ScrollView>
+
+</FrameLayout>
