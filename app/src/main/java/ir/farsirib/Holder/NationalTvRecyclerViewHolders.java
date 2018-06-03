@@ -1,12 +1,16 @@
 package ir.farsirib.Holder;
 
+import android.annotation.TargetApi;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +27,9 @@ import ir.farsirib.shenavarlib.StandOutWindow;
 import ir.farsirib.shenavarview.QueryPreferences;
 import ir.farsirib.shenavarview.Video;
 
+import static android.content.Context.ACTIVITY_SERVICE;
+import static ir.farsirib.Activity.DetailActivity.ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE;
+
 /**
  * Created by alireza on 2017/08/13.
  */
@@ -31,9 +38,9 @@ public class NationalTvRecyclerViewHolders extends RecyclerView.ViewHolder imple
 
     public TextView livetName;
     public ImageView livePhoto;
-    Context myContext;
-    NationalTv nationalTv;
-    String txt_name,txt_address;
+    private Context myContext;
+    private NationalTv nationalTv;
+    private String txt_name,txt_address;
 
     public NationalTvRecyclerViewHolders(View itemView , Context context) {
         super(itemView);
@@ -51,18 +58,18 @@ public class NationalTvRecyclerViewHolders extends RecyclerView.ViewHolder imple
         int pos = getPosition();
 
         try {
-            ConnectivityManager connManager = (ConnectivityManager) myContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-            NetworkInfo activeConnection = connManager.getActiveNetworkInfo();
-            boolean isOnline = false;
-            if ( (activeConnection != null) && activeConnection.isConnected() )
-                isOnline = true;
-
-            NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-
-            boolean wifi = false;
-            if ( mWifi.isConnected() )
-                wifi = true;
+//            ConnectivityManager connManager = (ConnectivityManager) myContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+//
+//            NetworkInfo activeConnection = connManager.getActiveNetworkInfo();
+//            boolean isOnline = false;
+//            if ( (activeConnection != null) && activeConnection.isConnected() )
+//                isOnline = true;
+//
+//            NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+//
+//            boolean wifi = false;
+//            if ( mWifi.isConnected() )
+//                wifi = true;
 
             nationalTv = NationalTv.getItem (NationalTv.NATIONAL_TVS[pos].getId());
 
@@ -93,15 +100,6 @@ public class NationalTvRecyclerViewHolders extends RecyclerView.ViewHolder imple
                                                              myContext.startActivity(intent);
                                                              break;
                                                          case "شناور":
-//                                                             if(QueryPreferences.getPermissionStatus(myContext)==null){
-//                                                                QueryPreferences.setPermissionStatus(myContext, "notGranted");
-//                                                                checkPermission();
-//                                                            }else{
-//                                                                if(QueryPreferences.getPermissionStatus(context).equals("notGranted")){
-//                                                                    checkPermission();
-//                                                                }
-//                                                            }
-
 
                                                             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && QueryPreferences.getPermissionStatus(myContext)!=null && QueryPreferences.getPermissionStatus(myContext).equals("OK")){
                                                                 StandOutWindow.videoUrl = txt_address;

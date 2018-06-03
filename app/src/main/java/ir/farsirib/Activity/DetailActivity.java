@@ -296,14 +296,7 @@ public class DetailActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 
-//				if(QueryPreferences.getPermissionStatus(context)==null){
-//					QueryPreferences.setPermissionStatus(context, "notGranted");
-//					checkPermission();
-//				}else{
-//					if(QueryPreferences.getPermissionStatus(context).equals("notGranted")){
-//						checkPermission();
-//					}
-//				}
+
 //
 //
 //				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && QueryPreferences.getPermissionStatus(getApplicationContext())!=null && QueryPreferences.getPermissionStatus(getApplicationContext()).equals("OK")){
@@ -332,15 +325,19 @@ public class DetailActivity extends Activity {
         multiWinBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+				if(QueryPreferences.getPermissionStatus(context)==null){
+					QueryPreferences.setPermissionStatus(context, "notGranted");
+					checkPermission();
+				}else{
+					if(QueryPreferences.getPermissionStatus(context).equals("notGranted")){
+						checkPermission();
+					}
+				}
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && QueryPreferences.getPermissionStatus(context)!=null && QueryPreferences.getPermissionStatus(context).equals("OK")){
-      //             onPause();
-        //           StandOutWindow.miliSecond = currentPosition;
                    StandOutWindow.videoUrl = videoURL;
                    StandOutWindow.title = title;
                    StandOutWindow.show(context, Video.class, StandOutWindow.DEFAULT_ID);
                 }else if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
-          //             onPause();
-            //           StandOutWindow.miliSecond = currentPosition;
                        StandOutWindow.videoUrl = videoURL;
                        StandOutWindow.title = title;
                 }
@@ -395,18 +392,18 @@ public class DetailActivity extends Activity {
 		}
 	}
 
-	public boolean isSL(){
-		ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-		for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
-		{
-			if ("ir.farsirib.shenavarview.Video"
-					.equals(service.service.getClassName()))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
+//	public boolean isSL(){
+//		ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+//		for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
+//		{
+//			if ("ir.farsirib.shenavarview.Video"
+//					.equals(service.service.getClassName()))
+//			{
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 	/**
 	 * Showing Dialog
 	 * */
