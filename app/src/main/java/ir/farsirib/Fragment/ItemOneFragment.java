@@ -24,7 +24,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +33,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.MediaController;
 import android.widget.VideoView;
+
+import androidx.fragment.app.Fragment;
 
 import ir.farsirib.R;
 
@@ -79,8 +81,8 @@ public class ItemOneFragment extends Fragment {
         webView.clearCache(true);
         webView.getSettings().setAppCacheEnabled(false);
         webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-        //webView.loadUrl("http://www.shahreraz.com/mob/kondaktor/index.php/kondaktor/fetch_data/2");
-        webView.loadUrl("http://www.shahreraz.com/mob/FarsApp/index.php/kondaktor/fetch_data/2");
+        //webView.loadUrl("http://www.mob.shahreraz.com/mob/kondaktor/index.php/kondaktor/fetch_data/2");
+        webView.loadUrl("http://77.36.166.137/mob/FarsApp/index.php/kondaktor/fetch_data/2");
 
         return rootView;
     }

@@ -1,6 +1,8 @@
 package ir.farsirib.shenavarlib;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -31,6 +33,9 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+
+import androidx.core.app.NotificationCompat;
+
 import ir.farsirib.R;
 import ir.farsirib.shenavarlib.constants.StandOutFlags;
 import ir.farsirib.shenavarlib.ui.Window;
@@ -45,6 +50,7 @@ import java.util.Set;
 public abstract class StandOutWindow extends Service {
 
 	static final String TAG = "StandOutWindow";
+	String CHANNEL_ID ="";
 	public static final int DEFAULT_ID = 0;
 	public static final int ONGOING_NOTIFICATION_ID = -1;
 	public static final int DISREGARD_ID = -2;
@@ -54,11 +60,18 @@ public abstract class StandOutWindow extends Service {
 	public static final String ACTION_CLOSE_ALL = "CLOSE_ALL";
 	public static final String ACTION_SEND_DATA = "SEND_DATA";
 	public static final String ACTION_HIDE = "HIDE";
+	private Notification notification;
+
 	public static void show(Context context,
 							Class<? extends StandOutWindow> cls, int id) {
 
-		context.startService(getShowIntent(context, cls, id));
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			context.startForegroundService(getShowIntent(context, cls, id));
+		}
+		else
+			context.startService(getShowIntent(context, cls, id));
 	}
+
 	public static void hide(Context context,
 							Class<? extends StandOutWindow> cls, int id) {
 		context.startService(getHideIntent(context, cls, id));
@@ -175,7 +188,7 @@ public abstract class StandOutWindow extends Service {
 	public abstract String getAppName();
 	public abstract int getAppIcon();
 	public abstract void createAndAttachView(int id, FrameLayout frame);
-	public abstract StandOutLayoutParams getParams(int id, Window window);
+	public abstract StandOutLayoutParams getParams(int id,int type, Window window);
 	public int getFlags(int id) {
 		return 0;
 	}
@@ -196,9 +209,9 @@ public abstract class StandOutWindow extends Service {
 
 	public static int miliSecond=0;
 
-    public String getTitle() {
-        return title;
-    }
+	public String getTitle() {
+		return title;
+	}
 
 	public int getIcon(int id) {
 		return getAppIcon();
@@ -224,6 +237,7 @@ public abstract class StandOutWindow extends Service {
 	public Intent getHiddenNotificationIntent(int id) {
 		return null;
 	}
+
 	public Notification getPersistentNotification(int id) {
 		int icon = getAppIcon();
 		long when = System.currentTimeMillis();
@@ -238,9 +252,8 @@ public abstract class StandOutWindow extends Service {
 					notificationIntent,
 					PendingIntent.FLAG_UPDATE_CURRENT);
 		}
-		Notification notification;
+		notification = new Notification();
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-			notification = new Notification();
 			try {
 				Method deprecatedMethod = notification.getClass().getMethod("setLatestEventInfo", Context.class, CharSequence.class, CharSequence.class, PendingIntent.class);
 				deprecatedMethod.invoke(notification, c, contentTitle, contentText, contentIntent);
@@ -248,16 +261,46 @@ public abstract class StandOutWindow extends Service {
 					| InvocationTargetException e) {
 				Log.w(TAG, "Method not found", e);
 			}
-		} else {
-			Notification.Builder builder = new Notification.Builder(c)
+		} else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+
+			Notification.Builder builder = new Notification.Builder(this)
 					.setContentIntent(contentIntent)
 					.setSmallIcon(icon)
 					.setContentTitle(contentTitle);
 			notification = builder.build();
-		}
 
+
+
+		} else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			CHANNEL_ID = "ir.farsirib";
+			String name = "My Background Service";
+			String description = "Alireza";
+
+
+			//CharSequence name = getString(R.string.channel_name);
+			//String description = getString(R.string.channel_description);
+			int importance = NotificationManager.IMPORTANCE_DEFAULT;
+			NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+			channel.setDescription(description);
+			// Register the channel with the system; you can't change the importance
+			// or other notification behaviors after this
+			NotificationManager notificationManager = getSystemService(NotificationManager.class);
+			notificationManager.createNotificationChannel(channel);
+
+
+			NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID);
+			notification = notificationBuilder.setOngoing(true)
+					.setSmallIcon(R.mipmap.ic_launcher)
+					.setContentTitle("App is running in background")
+					.setPriority(NotificationManager.IMPORTANCE_MIN)
+					.setCategory(Notification.CATEGORY_SERVICE)
+					.build();
+			startForeground(2, notification);
+		}
 		return notification;
 	}
+
+
 	public Notification getHiddenNotification(int id) {
 		int icon = getHiddenIcon();
 		long when = System.currentTimeMillis();
@@ -314,7 +357,7 @@ public abstract class StandOutWindow extends Service {
 			items = new ArrayList<DropDownListItem>();
 		}
 		items.add(new DropDownListItem(
-				android.R.drawable.ic_menu_close_clear_cancel, "بستن صفحه", new Runnable() {
+				android.R.drawable.ic_menu_close_clear_cancel, "ط¨ط³طھظ† طµظپط­ظ‡", new Runnable() {
 
 			@Override
 			public void run() {
@@ -386,6 +429,7 @@ public abstract class StandOutWindow extends Service {
 	public boolean onKeyEvent(int id, Window window, KeyEvent event) {
 		return false;
 	}
+
 	public final synchronized Window show(int id) {
 		Window cachedWindow = getWindow(id);
 		final Window window;
@@ -415,7 +459,7 @@ public abstract class StandOutWindow extends Service {
 			ex.printStackTrace();
 		}
 		sWindowCache.putCache(id, getClass(), window);
-		Notification notification = getPersistentNotification(id);
+		notification = getPersistentNotification(id);
 		if (notification != null) {
 			notification.flags = notification.flags
 					| Notification.FLAG_NO_CLEAR;
@@ -771,8 +815,15 @@ public abstract class StandOutWindow extends Service {
 		public static final int AUTO_POSITION = Integer.MIN_VALUE + 1;
 		public int threshold;
 		public int minWidth, minHeight, maxWidth, maxHeight;
-		public StandOutLayoutParams(int id) {
-			super(200, 200, TYPE_PHONE,
+		int type;
+		public StandOutLayoutParams()
+		{
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+				type = TYPE_APPLICATION_OVERLAY;
+			else type = TYPE_PHONE;
+		}
+		public StandOutLayoutParams(int id , int type) {
+			super(200, 200, type,
 					StandOutLayoutParams.FLAG_NOT_TOUCH_MODAL
 							| StandOutLayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
 					PixelFormat.TRANSLUCENT);
@@ -789,13 +840,13 @@ public abstract class StandOutWindow extends Service {
 			minWidth = minHeight = 0;
 			maxWidth = maxHeight = Integer.MAX_VALUE;
 		}
-		public StandOutLayoutParams(int id, int w, int h) {
-			this(id);
+		public StandOutLayoutParams(int id,int type, int w, int h) {
+			this(id , type);
 			width = w;
 			height = h;
 		}
-		public StandOutLayoutParams(int id, int w, int h, int xpos, int ypos) {
-			this(id, w, h);
+		public StandOutLayoutParams(int id, int type, int w, int h, int xpos, int ypos) {
+			this(id, type, w, h);
 
 			if (xpos != AUTO_POSITION) {
 				x = xpos;
@@ -817,15 +868,15 @@ public abstract class StandOutWindow extends Service {
 				y = (height - h) / 2;
 			}
 		}
-		public StandOutLayoutParams(int id, int w, int h, int xpos, int ypos,
+		public StandOutLayoutParams(int id,int type, int w, int h, int xpos, int ypos,
 									int minWidth, int minHeight) {
-			this(id, w, h, xpos, ypos);
+			this(id,type, w, h, xpos, ypos);
 			this.minWidth = minWidth;
 			this.minHeight = minHeight;
 		}
-		public StandOutLayoutParams(int id, int w, int h, int xpos, int ypos,
+		public StandOutLayoutParams(int id,int type, int w, int h, int xpos, int ypos,
 									int minWidth, int minHeight, int threshold) {
-			this(id, w, h, xpos, ypos, minWidth, minHeight);
+			this(id,type, w, h, xpos, ypos, minWidth, minHeight);
 
 			this.threshold = threshold;
 		}

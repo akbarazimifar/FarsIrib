@@ -12,7 +12,12 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Dialog;
+import android.app.DownloadManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,6 +30,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import androidx.core.app.NotificationCompat;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +43,7 @@ import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.squareup.picasso.Picasso;
@@ -114,7 +121,7 @@ public class DetailActivity extends Activity {
 	    //Setting the titlebar background blank (initial state)
 	    topview.getBackground().setAlpha(0);
 	    titleBar.setVisibility(View.INVISIBLE);
-	    
+
 	    bundle = getIntent().getExtras();
 	    title = bundle.getString("title");
 	    sum = bundle.getString("descr");
@@ -127,7 +134,7 @@ public class DetailActivity extends Activity {
 	    TextView mSum = findViewById(R.id.sumary);
 	    TextView mDescr = findViewById(R.id.description);
 	    mImg = findViewById(R.id.imageView);
-	    
+
 	    titleview.setText(title);
 
 		mDescr.setText(Html.fromHtml("<html lang=\"ir\"><body><p dir=\"rtl\">" + sum + "</p></body></html>"));
@@ -149,9 +156,9 @@ public class DetailActivity extends Activity {
 				.into((mImg));
 
 
-	    
+
 	    titleBar.setText(title);
-	    
+
 	    Button btnback = findViewById(R.id.title_bar_left_menu);
 	    btnback.setOnClickListener(new OnClickListener(){
 
@@ -429,6 +436,12 @@ public class DetailActivity extends Activity {
 	 * */
 	class DownloadFileFromURL extends AsyncTask<String, String, String> {
 
+		NotificationManager mNotifyManager;
+		NotificationCompat.Builder mBuilder;
+		String DIR_SAVE;
+		String path1="";
+
+
 		/**
 		 * Before starting background thread
 		 * Show Progress Bar Dialog
@@ -437,6 +450,12 @@ public class DetailActivity extends Activity {
 		protected void onPreExecute() {
 			super.onPreExecute();
 			showDialog(progress_bar_type);
+			mNotifyManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+			mBuilder = new NotificationCompat.Builder(context);
+//			mBuilder.setContentTitle("File Download")
+//					.setContentText("Download in progress")
+//					.setSmallIcon(R.mipmap.ic_launcher);
+			//		 Toast.makeText(context,"Downloading the file... The download progress is on notification bar.", Toast.LENGTH_LONG).show();
 		}
 
 		/**
@@ -444,7 +463,9 @@ public class DetailActivity extends Activity {
 		 */
 		@Override
 		protected String doInBackground(String... file_url) {
+
 			int count;
+
 			try {
 
 				URL url = new URL(file_url[0]);
@@ -456,14 +477,17 @@ public class DetailActivity extends Activity {
 				// input stream to read file - with 8k buffer
 				InputStream input = new BufferedInputStream(url.openStream());
 
-				String DIR_SDCARD = Environment.getExternalStorageDirectory().getAbsolutePath();
-				String DIR_SAVE = DIR_SDCARD + "/videofiles/";
+				String pathr = url.getPath();
+				String filename = pathr.substring((pathr.lastIndexOf('/')+1));
+				String DIR_SDCARD = Environment.getExternalStorageDirectory().toString();
+				DIR_SAVE = DIR_SDCARD + "/videofiles/";
+				path1 = DIR_SAVE + filename;
 
 				File rootFile = new File(DIR_SAVE);
 				rootFile.mkdir();
 
 				// Output stream to write file
-				OutputStream output = new FileOutputStream(rootFile+"/"+"1087.mp4");
+				OutputStream output = new FileOutputStream(path1);
 
 				byte data[] = new byte[1024];
 
@@ -499,6 +523,8 @@ public class DetailActivity extends Activity {
 		protected void onProgressUpdate(String... progress) {
 			// setting progress percentage
 			pDialog.setProgress(Integer.parseInt(progress[0]));
+			//mBuilder.setProgress(100, Integer.parseInt(progress[0]), false);
+			//mNotifyManager.notify(0,mBuilder.build());
 		}
 
 		/**
@@ -509,6 +535,36 @@ public class DetailActivity extends Activity {
 		protected void onPostExecute(String file_url) {
 			// dismiss the dialog after the file was downloaded
 			dismissDialog(progress_bar_type);
+
+			Toast.makeText(context,"دسترسی به فایل دانلود شده از طریق بخش اعلانات...", Toast.LENGTH_LONG).show();
+			TaskStackBuilder stackBuilder = TaskStackBuilder.create(getApplicationContext());
+
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+		//	Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() + "/Download/" );
+			File file = new File(path1);
+			intent.setDataAndType(Uri.fromFile(file), "video/mp4");
+			//startActivity(Intent.createChooser(intent, "Open folder"));
+		//	startActivity(intent);
+
+			// Adds the back stack for the Intent (but not the Intent itself)
+			stackBuilder.addParentStack(MainActivity.class);
+			// Adds the Intent that starts the Activity to the top of the stack
+			stackBuilder.addNextIntent(intent);
+
+			//PendingIntent pIntent = PendingIntent.getActivity(context,0, intent,PendingIntent.FLAG_ONE_SHOT);
+			PendingIntent pIntent = stackBuilder.getPendingIntent(0,
+					PendingIntent.FLAG_UPDATE_CURRENT);
+
+			Notification noti = new NotificationCompat.Builder(context)
+					.setContentTitle("File Download")
+					.setContentText("برای مشاهده فایل دانلود شده به پوشه videofiles مراجعه کنید")
+					.setSmallIcon(R.mipmap.ic_launcher)
+					.setContentIntent(pIntent).build();
+
+			noti.flags |= Notification.FLAG_AUTO_CANCEL;
+
+			NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+			mNotificationManager.notify(0,noti);
 		}
 	}
 
@@ -517,7 +573,7 @@ public class DetailActivity extends Activity {
 		super.onStop();
 		mImg.setImageResource(0);
 	}
-	
+
 	//performing changes to the titlebars visibility
 	private UIParallaxScroll.OnScrollChangedListener mOnScrollChangedListener = new UIParallaxScroll.OnScrollChangedListener() {
         public void onScrollChanged(ScrollView who, int l, int t, int oldl, int oldt) {
@@ -527,17 +583,17 @@ public class DetailActivity extends Activity {
             final int newAlpha = (int) (ratio * 255);
             topview.getBackground().setAlpha(newAlpha);
             topview.getBackground().setAlpha(newAlpha);
-            
+
             Animation animationFadeIn = AnimationUtils.loadAnimation(DetailActivity.this,R.anim.fadein);
             Animation animationFadeOut = AnimationUtils.loadAnimation(DetailActivity.this,R.anim.fadeout);
-            
+
             if (newAlpha == 255 && titleBar.getVisibility() != View.VISIBLE && !animationFadeIn.hasStarted()){
             	titleBar.setVisibility(View.VISIBLE);
             	titleBar.startAnimation(animationFadeIn);
-            } else if (newAlpha < 255 && !animationFadeOut.hasStarted() && titleBar.getVisibility() != View.INVISIBLE)  { 	
+            } else if (newAlpha < 255 && !animationFadeOut.hasStarted() && titleBar.getVisibility() != View.INVISIBLE)  {
             	titleBar.startAnimation(animationFadeOut);
             	titleBar.setVisibility(View.INVISIBLE);
-            	
+
             }
         }
     };

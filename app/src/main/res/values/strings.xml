@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="radio_male">مذکر</string>
+    <string name="radio_female">مونث</string>
+
     <string name="window_icon">Window icon</string>
     <string name="hide">Hide</string>
     <string name="close">Close</string>
@@ -73,7 +76,23 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_web_main_page">WebMainPageActivity</string>
 
-    <string name="item_fullscr">تمام صفحه </string>
-    <string name="item_shenavar"> شناور</string>
+    <string name="item_fullscr">پخش زنده تمام صفحه </string>
+    <string name="item_shenavar">پخش زنده شناور</string>
+    <string name="item_archive"> آرشیو زمانی</string>
+    <string name="title_activity_base_page">BasePageActivity</string>
+    <string name="title_activity_chelcheragh">ChelcheraghActivity</string>
+    <string name="title_activity_main3">Main3Activity</string>
+
+    <string name="degree_prompt">تحصیلات</string>
+    <string name="category">دسته بندی</string>
+
+    <string-array name="degree_arrays">
+        <item>دیپلم</item>
+        <item>فوق دیپلم</item>
+        <item>لیسانس</item>
+        <item>فوق لیسانس</item>
+        <item>دکتری</item>
+        <item>سایر</item>
+    </string-array>
 
 </resources>

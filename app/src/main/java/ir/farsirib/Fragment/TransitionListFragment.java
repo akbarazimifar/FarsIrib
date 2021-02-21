@@ -3,12 +3,14 @@ package ir.farsirib.Fragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
+
+import androidx.fragment.app.Fragment;
 
 import ir.farsirib.Activity.OptionActivity;
 import ir.farsirib.Activity.VideoPlayerActivity;
@@ -33,7 +35,7 @@ public class TransitionListFragment extends Fragment {
     private TransitionListAdapter mAdapter;
     private ResideMenu resideMenu;
     int barname_id=0;
-    
+
     //Vars
     private String PACKAGE = "IDENTIFY";
 
@@ -79,9 +81,9 @@ public class TransitionListFragment extends Fragment {
         listView.setIgnoredViewHandler(resideMenu);
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View viewa, int i, long l) { 
+            public void onItemClick(AdapterView<?> adapterView, View viewa, int i, long l) {
                 ListItem item = (ListItem) listView.getAdapter().getItem(i);
-        
+
                 Intent intent = new Intent(getActivity(), TransitionDetailActivity.class);
                 switch (i)
                 {
@@ -126,12 +128,12 @@ public class TransitionListFragment extends Fragment {
                 int[] screen_location = new int[2];
                 View view = viewa.findViewById(R.id.item_image);
                 view.getLocationOnScreen(screen_location);
-                
+
                 bundle.putInt(PACKAGE + ".left", screen_location[0]);
                 bundle.putInt(PACKAGE + ".top", screen_location[1]);
                 bundle.putInt(PACKAGE + ".width", view.getWidth());
                 bundle.putInt(PACKAGE + ".height", view.getHeight());
-                
+
                 intent.putExtras(bundle);
 
                 startActivity(intent);

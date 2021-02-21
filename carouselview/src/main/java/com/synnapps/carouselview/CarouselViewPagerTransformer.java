@@ -4,8 +4,9 @@ package com.synnapps.carouselview;
  * Created by Sayyam on 3/28/16.
  */
 
-import android.support.annotation.IntDef;
-import android.support.v4.view.ViewPager;
+import androidx.annotation.IntDef;
+import androidx.viewpager.widget.ViewPager;
+
 import android.view.View;
 
 import java.lang.annotation.Retention;

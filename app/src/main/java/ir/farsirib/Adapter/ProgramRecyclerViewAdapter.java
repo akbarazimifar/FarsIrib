@@ -1,36 +1,27 @@
 package ir.farsirib.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import ir.farsirib.Activity.TransitionDetailActivity;
-import ir.farsirib.Holder.ProgramRecyclerViewHolders;
-import ir.farsirib.Model.ListItem;
 import ir.farsirib.Model.program;
 import ir.farsirib.R;
 import ir.farsirib.Setting.Default_Station;
-import ir.farsirib.utils.UICircularImage;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
-import static java.security.AccessController.getContext;
 
 /**
  * Created by alireza on 20/02/2017.
@@ -124,32 +115,36 @@ public class ProgramRecyclerViewAdapter extends RecyclerView.Adapter<ProgramRecy
                         barname_id = 3 ; //kashaneh
                         break;
                     case 1:
-                        barname_id = 4 ;//khosha
+                        barname_id = 75 ;//khodemooni
                         break;
                     case 2:
-                        barname_id = 72 ;//gompegola
+                        barname_id = 4 ;//khosha
                         break;
                     case 3:
-                        barname_id = 11 ;//shabeparsi
+                        barname_id = 72 ;//gompegola
                         break;
                     case 4:
-                        barname_id = 15 ;//sobheDekgosha
+                        barname_id = 11 ;//shabeparsi
                         break;
                     case 5:
-                        barname_id = 10 ;//goftegoo
+                        barname_id = 15 ;//sobheDekgosha
                         break;
                     case 6:
-                        barname_id = 12 ;//shahreraz
+                        barname_id = 10 ;//goftegoo
                         break;
                     case 7:
-                        barname_id = 13 ;//moshavereShoma
+                        barname_id = 12 ;//shahreraz
                         break;
                     case 8:
-                        barname_id = 30 ;//hamvelayati
+                        barname_id = 13 ;//moshavereShoma
                         break;
                     case 9:
+                        barname_id = 30 ;//hamvelayati
+                        break;
+                    case 10:
                         barname_id = 67 ;//shamdooni
                         break;
+
                 }
 
 

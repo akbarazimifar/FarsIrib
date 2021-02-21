@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +17,6 @@ import java.util.Collections;
 import java.util.List;
 
 import ir.farsirib.Activity.DetailActivity;
-import ir.farsirib.Activity.MainActivity;
 import ir.farsirib.Model.barname;
 import ir.farsirib.R;
 

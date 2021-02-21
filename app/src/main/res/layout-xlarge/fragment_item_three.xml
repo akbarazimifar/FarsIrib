@@ -1,0 +1,90 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="ir.farsirib.Fragment.ItemThreeFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--<tcking.github.com.giraffeplayer2.VideoView-->
+            <!--android:id="@+id/video_view1"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="190dp"/>-->
+
+        <VideoView
+            android:id="@+id/video_view1"
+            android:layout_width="match_parent"
+            android:layout_height="340dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"/>
+
+        <ir.farsirib.utils.UICircularImage
+            android:id="@+id/fullScr_btn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="5dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_full_scr"
+            app:background_color="@color/gray_transparent"
+            app:line_color="@color/transparent"
+            app:line_color_press="@color/sub_color"
+            app:line_width="1dp"
+            app:padding="10dp"
+            />
+
+        <ir.farsirib.utils.UICircularImage
+            android:id="@+id/multiwin_btn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="84dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_multi_win1"
+            app:background_color="@color/gray_transparent"
+            app:line_color="@color/transparent"
+            app:line_color_press="@color/sub_color"
+            app:line_width="1dp"
+            app:padding="10dp"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative"
+        android:layout_marginTop="340dp"
+        android:layout_width="fill_parent"
+        android:layout_height="80dp">
+
+        <TextView
+            android:id="@+id/txt_name"
+            android:text="جدول پخش برنامه ها"
+            android:textSize="32dp"
+            android:textColor="#FFFFFF"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative2"
+        android:layout_marginTop="420dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <WebView
+                android:id="@+id/webView1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></WebView>
+
+        </ScrollView>
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -78,7 +78,7 @@
 
 						 </FrameLayout>
 </ir.farsirib.utils.UIParallaxScroll>
-						 <android.support.design.widget.BottomNavigationView
+						 <com.google.android.material.bottomnavigation.BottomNavigationView
 							 android:id="@+id/navigation"
 							 android:layout_width="match_parent"
 							 android:layout_height="80dp"

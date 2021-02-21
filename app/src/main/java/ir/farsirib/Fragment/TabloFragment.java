@@ -4,13 +4,15 @@ package ir.farsirib.Fragment;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+
+import androidx.fragment.app.Fragment;
 
 import ir.farsirib.R;
 
@@ -48,7 +50,7 @@ public class TabloFragment extends Fragment {
         webView.clearCache(true);
         webView.getSettings().setAppCacheEnabled(false);
         webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-        webView.loadUrl("http://mob.shahreraz.com/tablo/");
+        webView.loadUrl("http://www.shahreraz.com/mob/tablo/");
 
         return rootView;
     }

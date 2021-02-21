@@ -1,6 +1,6 @@
 package ir.farsirib.Activity;
 
-import co.ronash.pushe.Pushe;
+//import co.ronash.pushe.Pushe;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -8,11 +8,13 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Handler;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -61,7 +63,7 @@ public class OptionActivity extends AppCompatActivity implements View.OnClickLis
         mydatabase=new DatabaseAssets(getApplicationContext());
         LoadingDatabase();
 
-        Pushe.initialize(this,true);
+        //Pushe.initialize(this,true);
 
         setUpMenu();
 

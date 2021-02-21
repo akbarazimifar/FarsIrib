@@ -1,7 +1,7 @@
 package ir.farsirib.Adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +15,6 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.util.List;
 
-import ir.farsirib.Holder.NationalTvRecyclerViewHolders;
 import ir.farsirib.Holder.OverseasTvRecyclerViewHolders;
 import ir.farsirib.Model.LiveItemObject;
 import ir.farsirib.R;

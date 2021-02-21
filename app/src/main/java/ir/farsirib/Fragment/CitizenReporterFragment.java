@@ -1,9 +1,7 @@
 package ir.farsirib.Fragment;
 
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,14 +12,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AlertDialog;
+import com.google.android.material.textfield.TextInputLayout;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentActivity;
+
 import android.util.Base64;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -51,11 +48,8 @@ import ir.farsirib.R;
 import ir.farsirib.utils.UICircularImage;
 
 import static android.app.Activity.RESULT_OK;
-import static java.security.AccessController.getContext;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class CitizenReporterFragment extends FragmentActivity {
 
     UICircularImage imgFromGallery;
@@ -453,7 +447,7 @@ public class CitizenReporterFragment extends FragmentActivity {
             try{
 
                 HttpClient httpclient=new DefaultHttpClient();
-                HttpPost httppost=new HttpPost("http://www.mob.shahreraz.com/Farsirib/webservice/command.php");
+                HttpPost httppost=new HttpPost("http://www.shahreraz.com/mob/Farsirib/webservice/command.php");
                 httppost.setEntity(new UrlEncodedFormEntity(namevaluepairs));
 
                 HttpResponse httpresponse=httpclient.execute(httppost);
@@ -556,7 +550,7 @@ public class CitizenReporterFragment extends FragmentActivity {
             try
             {
                 HttpClient httpclient=new DefaultHttpClient();
-                HttpPost httppost=new HttpPost("http://www.mob.shahreraz.com/Farsirib/webservice/command.php");
+                HttpPost httppost=new HttpPost("http://www.shahreraz.com/mob/Farsirib/webservice/command.php");
                 httppost.setEntity(new UrlEncodedFormEntity(namevaluepairs, HTTP.UTF_8));
                 HttpResponse httpresponse=httpclient.execute(httppost);
 

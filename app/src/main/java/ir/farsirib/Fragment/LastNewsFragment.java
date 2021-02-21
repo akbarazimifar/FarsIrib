@@ -1,12 +1,12 @@
 package ir.farsirib.Fragment;
 
 
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +20,6 @@ import ir.farsirib.R;
 import ir.farsirib.utils.Rss;
 import ir.farsirib.utils.Xml;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class LastNewsFragment extends Fragment {
 
     public RecyclerView re;

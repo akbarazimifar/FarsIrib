@@ -1,5 +1,6 @@
 package ir.farsirib.Activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -9,36 +10,35 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import org.apache.http.HttpResponse;
@@ -55,21 +55,16 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
-import ir.farsirib.CustomWidgets.MyEditText;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import ir.farsirib.CustomWidgets.MyTextView;
 import ir.farsirib.Interfaces.ResultObject;
 import ir.farsirib.Interfaces.VideoInterface;
-import java.util.jar.Manifest;
 import ir.farsirib.R;
-import ir.farsirib.utils.UICircularImage;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -80,29 +75,29 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
-import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO;
-
 /**
  * Created by alireza on 02/08/2017.
  */
 
-public class CitizenReporterActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
+public class CitizenReporterActivity extends Main2Activity implements EasyPermissions.PermissionCallbacks{
     private static final int REQUEST_VIDEO_CAPTURE = 300;
     private static final int READ_REQUEST_CODE = 200;
+    private static final int SELECT_VIDEO = 3 ;
     private String pathToStoredVideo;
     private VideoView displayRecordedVideo;
-    private static final String SERVER_PATH = "http://www.mob.shahreraz.com/Farsirib/webservice/videos/";
+//    private static final String SERVER_PATH = "https://farsirib.cloud/Farsirib/webservice/videos/";
+    private static final String SERVER_PATH = "http://shahreraz.com/Farsirib/webservice/videos/";
     ArrayList<ImageView> images = new ArrayList<ImageView>();
     int current_image;
-    Boolean[] fill_images=new Boolean[3];
-    String[] address_images=new String[3];
+    Boolean[] fill_images=new Boolean[4];
+    String[] address_images=new String[4];
     String image_base64;
     Uri uri,gallary_uri;
     Button submit_bt;
     final int FROM_GALARY = 1;
     final int FROM_CAPTURE = 2;
     final int FROM_CAMERA = 3;
+    final int VIDEO_FROM_GALARY = 4;
 
     TextInputLayout title_news_layout;
     TextInputLayout news_layout;
@@ -125,7 +120,11 @@ public class CitizenReporterActivity extends AppCompatActivity implements EasyPe
     private final int CAMERA_REQUEST_CODE = 100;
     private static final int REQUEST_WRITE_STORAGE = 112;
 
+    static {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
 
+    private String selectedPath;
 
     public CitizenReporterActivity() {
         // Required empty public constructor
@@ -138,7 +137,57 @@ public class CitizenReporterActivity extends AppCompatActivity implements EasyPe
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_citizen_reporter);
+       // setContentView(R.layout.fragment_citizen_reporter);
+
+        FrameLayout content_frame = findViewById(R.id.content_frame);
+        getLayoutInflater().inflate(R.layout.fragment_citizen_reporter,content_frame);
+
+        if (settings.getInt("user_id",0)!=0)
+        {
+            navigationView = findViewById(R.id.nav_view);
+            headerView = navigationView.getHeaderView(0);
+            account_tv = headerView.findViewById(R.id.account_txt);
+            account_tv.setText(settings.getString("mobile_num",""));
+
+            drawer.closeDrawer(Gravity.RIGHT);
+        }
+        else
+        {
+            error_message_dialog("شبکه فارس!" , "شما وارد حساب کاربری خود نشده اید!");
+
+            Intent i=new Intent(getApplicationContext(),LoginActivity.class);
+            startActivity(i);
+            drawer.closeDrawer(Gravity.RIGHT);
+        }
+
+        String title = String.valueOf(getIntent().getExtras().getString("title"));
+        toolbar.setTitle(title);
+
+        for (int i = 0; i < toolbar.getChildCount(); i++) {
+            View view = toolbar.getChildAt(i);
+
+            if (view instanceof TextView) {
+
+                TextView tv = (TextView) view;
+                tv.setTypeface(myfont);
+                tv.setTextSize(18);
+            }
+        }
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Drawable arrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
+        getSupportActionBar().setHomeAsUpIndicator(arrow);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                drawer.closeDrawer(Gravity.RIGHT);
+
+                onBackPressed();
+            }
+        });
+
 
         allowAccessAlert();
 
@@ -149,6 +198,7 @@ public class CitizenReporterActivity extends AppCompatActivity implements EasyPe
         images.add((ImageView) findViewById(R.id.image1));
         images.add((ImageView) findViewById(R.id.image2));
         images.add((ImageView) findViewById(R.id.image3));
+        images.add((ImageView) findViewById(R.id.image4));
 
         images.get(0).setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -188,12 +238,26 @@ public class CitizenReporterActivity extends AppCompatActivity implements EasyPe
             public void onClick(View view) {
                 current_image = 2;
 
-              //  Toast.makeText(getApplicationContext(),"این بخش در نسخه های بعدی عملیاتی خواهد شد.",Toast.LENGTH_SHORT).show();
-                                                 if (!fill_images[current_image]) {
-                                                     show_dialog(FROM_CAMERA);
-                                                 } else {
-                                                     show_delete_dialog();
-                                                 }
+                if (!fill_images[current_image]) {
+                    show_dialog(FROM_CAMERA);
+                } else {
+                    show_delete_dialog();
+                }
+
+            }
+        });
+
+        images.get(3).setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View view) {
+                current_image = 3;
+
+                if (!fill_images[current_image]) {
+                    show_dialog(VIDEO_FROM_GALARY);
+                } else {
+                    show_delete_dialog();
+                }
 
             }
         });
@@ -209,6 +273,7 @@ public class CitizenReporterActivity extends AppCompatActivity implements EasyPe
         name_text = findViewById(R.id.name_text);
         email_text = findViewById(R.id.email_text);
         tel_text = findViewById(R.id.tel_text);
+        tel_text.setText(settings.getString("mobile_num",""));
 
         submit_bt= findViewById(R.id.submit_bt);
 
@@ -270,10 +335,15 @@ public class CitizenReporterActivity extends AppCompatActivity implements EasyPe
 
                         if (fill_images[2] == true) {
                             new_report.put("image3", address_images[2]);
-                        }else
-                        {
-                            new_report.put("image3", "");
                         }
+
+                        if (fill_images[3] == true) {
+                            new_report.put("image3", address_images[3]);
+                        }
+
+                        if(!fill_images[2] && !fill_images[3])
+                            new_report.put("image3", "");
+
 
                         new_report.put("news_title",title_news_text.getText().toString().trim());
                         new_report.put("news_text",news_text.getText().toString().trim());
@@ -321,7 +391,12 @@ public class CitizenReporterActivity extends AppCompatActivity implements EasyPe
                     case 2:
                         images.get(current_image).setImageResource(R.mipmap.ic_video);
                         fill_images[current_image] = false;
-                        //displayRecordedVideo.setBackground();
+                        displayRecordedVideo.setVisibility(View.GONE);
+                        break;
+                    case 3:
+                        images.get(current_image).setImageResource(R.mipmap.ic_video_library);
+                        fill_images[current_image] = false;
+                        displayRecordedVideo.setVisibility(View.GONE);
                         break;
                 }
 
@@ -342,20 +417,33 @@ public class CitizenReporterActivity extends AppCompatActivity implements EasyPe
 
     private  void empty_field()
     {
+        new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText("شبکه فارس")
+                .setContentText( "اطلاعات با موفقیت ارسال شد" )
+                .show();
+
         images.get(0).setImageResource(R.mipmap.ic_folder);
         fill_images[0] = false;
+        address_images[0] = "";
 
         images.get(1).setImageResource(R.mipmap.ic_camera);
         fill_images[1] = false;
+        address_images[1] = "";
 
         images.get(2).setImageResource(R.mipmap.ic_video);
         fill_images[2] = false;
+        address_images[2] = "";
+
+        images.get(3).setImageResource(R.mipmap.ic_video_library);
+        fill_images[3] = false;
+        address_images[3] = "";
 
         title_news_text.setText("");
         news_text.setText("");
         name_text.setText("");
         email_text.setText("");
         tel_text.setText("");
+        displayRecordedVideo.setVisibility(View.GONE);
 
     }
 
@@ -364,24 +452,10 @@ public class CitizenReporterActivity extends AppCompatActivity implements EasyPe
         switch (type)
         {
             case FROM_GALARY:
-              //  if(ContextCompat.checkSelfPermission(CitizenReporterActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-
                     Intent gallery_intent=new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI) ;
                     startActivityForResult(Intent.createChooser(gallery_intent,"لطفا یک عکس را انتخاب کنید"),2);
-//                }
-//                else{
-//                    if(shouldShowRequestPermissionRationale(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)){
-//                        Toast.makeText(getApplicationContext(), "Permission Needed.", Toast.LENGTH_LONG).show();
-//                    }
-//                    requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE}, CAMERA_REQUEST_CODE);
-//                    show_dialog(FROM_GALARY);
-//
-//                }
                 break;
             case FROM_CAPTURE:
-
-
-
                 if(ContextCompat.checkSelfPermission(CitizenReporterActivity.this, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
                     dispatchTakenPictureIntent();
                 }
@@ -391,47 +465,30 @@ public class CitizenReporterActivity extends AppCompatActivity implements EasyPe
                     }
                     requestPermissions(new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_REQUEST_CODE);
                     show_dialog(FROM_CAPTURE);
-
                 }
 
-//                if ( getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
-//                    dispatchTakenPictureIntent();
-//                }
-
-//                if(ContextCompat.checkSelfPermission(CitizenReporterActivity.this, ir.farsirib.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
-//                    dispatchTakenPictureIntent();
-//                }
-//                else{
-//                    if(shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)){
-//                        Toast.makeText(getApplicationContext(), "Permission Needed.", Toast.LENGTH_LONG).show();
-//                    }
-//                    requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_RESULT);
-//                }
-
-//                if ( getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY))
-//                {
-//                    Intent camera_intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                    startActivityForResult(camera_intent,1);
-//
-//                }
-
-
-//                File file = new File(Environment.getExternalStorageDirectory(),"file/"+String.valueOf(System.currentTimeMillis()+".png"));
-//
-//                uri= Uri.fromFile(file);
-//
-//                camera_intent.putExtra(MediaStore.EXTRA_OUTPUT,uri);
-//
-//                camera_intent.putExtra("return-data",true);
-
-                //startActivityForResult(camera_intent,1);
                 break;
             case FROM_CAMERA:
 
-                Intent videoCaptureIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                if(videoCaptureIntent.resolveActivity(getPackageManager()) != null){
-                    startActivityForResult(videoCaptureIntent, REQUEST_VIDEO_CAPTURE);
+                if (ContextCompat.checkSelfPermission(CitizenReporterActivity.this, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                    Intent videoCaptureIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                    if(videoCaptureIntent.resolveActivity(getPackageManager()) != null){
+                        startActivityForResult(videoCaptureIntent, REQUEST_VIDEO_CAPTURE);
+                    }
+                } else {
+                    if (shouldShowRequestPermissionRationale(android.Manifest.permission.CAMERA)) {
+                        Toast.makeText(getApplicationContext(), "Permission Needed.", Toast.LENGTH_LONG).show();
+                    }
+                    requestPermissions(new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_REQUEST_CODE);
+                    show_dialog(FROM_CAMERA);
                 }
+                break;
+            case VIDEO_FROM_GALARY:
+
+                Intent intent = new Intent();
+                intent.setType("video/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "لطفا یک ویدیو انتخاب کنید "), SELECT_VIDEO);
 
                 break;
         }
@@ -451,10 +508,10 @@ public class CitizenReporterActivity extends AppCompatActivity implements EasyPe
         }
     }
 
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onActivityResult(int requestCode,int resultCode,Intent data)
     {
-
         if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK ){//camera
 
             CropImage.activity(fileUri).setAspectRatio(1,1).setRequestedSize(512,512).start(this);
@@ -472,6 +529,7 @@ public class CitizenReporterActivity extends AppCompatActivity implements EasyPe
             if(EasyPermissions.hasPermissions(CitizenReporterActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)){
                 uploaProcess.setVisibility(View.VISIBLE);
                 upload_txt.setVisibility(View.VISIBLE);
+                displayRecordedVideo.setVisibility(View.VISIBLE);
                 displayRecordedVideo.setVideoURI(uri);
                 displayRecordedVideo.start();
 
@@ -506,7 +564,41 @@ public class CitizenReporterActivity extends AppCompatActivity implements EasyPe
 
             new upload_image().execute();
 
+        }else if (resultCode == RESULT_OK) {
+            if (requestCode == SELECT_VIDEO) {
+
+                fill_images[3]=true;
+
+                Uri selectedImageUri = data.getData();
+                selectedPath = getPath(selectedImageUri);
+
+                uploaProcess.setVisibility(View.VISIBLE);
+                upload_txt.setVisibility(View.VISIBLE);
+                displayRecordedVideo.setVisibility(View.VISIBLE);
+                displayRecordedVideo.setVideoURI(selectedImageUri);
+                displayRecordedVideo.start();
+
+                uploadVideoToServer(selectedPath);
+               // textView.setText(selectedPath);
+            }
         }
+    }
+
+    public String getPath(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        String document_id = cursor.getString(0);
+        document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
+        cursor.close();
+
+        cursor = getContentResolver().query(
+                android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
+        cursor.moveToFirst();
+        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATA));
+        cursor.close();
+
+        return path;
     }
 
     private String getFileDestinationPath(){
@@ -522,14 +614,17 @@ public class CitizenReporterActivity extends AppCompatActivity implements EasyPe
         return filePathEnvironment + "/video/" + generatedFilename + ".mp4";
     }
     @Override
+
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, CitizenReporterActivity.this);
     }
+
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
         if(uri != null){
             if(EasyPermissions.hasPermissions(CitizenReporterActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)){
+                displayRecordedVideo.setVisibility(View.VISIBLE);
                 displayRecordedVideo.setVideoURI(uri);
                 displayRecordedVideo.start();
 
@@ -543,6 +638,20 @@ public class CitizenReporterActivity extends AppCompatActivity implements EasyPe
             }
         }
     }
+
+    private static String arabicToDecimal(String number) {
+        char[] chars = new char[number.length()];
+        for(int i=0;i<number.length();i++) {
+            char ch = number.charAt(i);
+            if (ch >= 0x0660 && ch <= 0x0669)
+                ch -= 0x0660 - '0';
+            else if (ch >= 0x06f0 && ch <= 0x06F9)
+                ch -= 0x06f0 - '0';
+            chars[i] = ch;
+        }
+        return new String(chars);
+    }
+
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
         Log.d(TAG, "User has denied requested permission");
@@ -551,8 +660,16 @@ public class CitizenReporterActivity extends AppCompatActivity implements EasyPe
     private void uploadVideoToServer(String pathToVideoFile){
         File videoFile = new File(pathToVideoFile);
         RequestBody videoBody = RequestBody.create(MediaType.parse("video/*"), videoFile);
-        MultipartBody.Part vFile = MultipartBody.Part.createFormData("video", videoFile.getName(), videoBody);
-        address_images[2] = "videos/" + videoFile.getName();
+        MultipartBody.Part vFile = MultipartBody.Part.createFormData("video", arabicToDecimal(videoFile.getName()), videoBody);
+
+        if (current_image == 2) {
+            address_images[2] = "videos/" + videoFile.getName();
+            }
+            else if(current_image == 3) {
+
+                address_images[3] = "videos/" + videoFile.getName();
+        }
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(SERVER_PATH)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -607,7 +724,8 @@ public class CitizenReporterActivity extends AppCompatActivity implements EasyPe
             try{
 
                 HttpClient httpclient=new DefaultHttpClient();
-                HttpPost httppost=new HttpPost("http://www.mob.shahreraz.com/Farsirib/webservice/command.php");
+                HttpPost httppost=new HttpPost("http://shahreraz.com/Farsirib/webservice/command.php");
+//                HttpPost httppost=new HttpPost("https://farsirib.cloud/Farsirib/webservice/command.php");
                 httppost.setEntity(new UrlEncodedFormEntity(namevaluepairs));
 
                 HttpResponse httpresponse=httpclient.execute(httppost);
@@ -710,7 +828,8 @@ public class CitizenReporterActivity extends AppCompatActivity implements EasyPe
             try
             {
                 HttpClient httpclient=new DefaultHttpClient();
-                HttpPost httppost=new HttpPost("http://www.mob.shahreraz.com/Farsirib/webservice/command.php");
+                HttpPost httppost=new HttpPost("http://77.36.166.137/Farsirib/webservice/command.php");
+//                HttpPost httppost=new HttpPost("https://farsirib.cloud/Farsirib/webservice/command.php");
                 httppost.setEntity(new UrlEncodedFormEntity(namevaluepairs, HTTP.UTF_8));
                 HttpResponse httpresponse=httpclient.execute(httppost);
 
@@ -727,7 +846,7 @@ public class CitizenReporterActivity extends AppCompatActivity implements EasyPe
                             @Override
                             public void run() {
 
-                                Toast.makeText(getApplicationContext(),"با موفقیت ارسال شد",Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getApplicationContext(),"با موفقیت ارسال شد",Toast.LENGTH_SHORT).show();
                                 empty_field();
                             }
                         });
@@ -738,7 +857,8 @@ public class CitizenReporterActivity extends AppCompatActivity implements EasyPe
                             @Override
                             public void run() {
 
-                                Toast.makeText(getBaseContext(),"خطا در ارسال",Toast.LENGTH_SHORT).show();
+                                error_message_dialog("اوه..." , "خطا در ارسال اطلاعات");
+                               // Toast.makeText(getBaseContext(),"خطا در ارسال",Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -749,7 +869,8 @@ public class CitizenReporterActivity extends AppCompatActivity implements EasyPe
                         @Override
                         public void run() {
 
-                            Toast.makeText(getBaseContext(),"خطا در ارسال",Toast.LENGTH_SHORT).show();
+                            error_message_dialog("اوه..." , "خطا در ارسال اطلاعات");
+                            //Toast.makeText(getBaseContext(),"خطا در ارسال",Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -763,7 +884,8 @@ public class CitizenReporterActivity extends AppCompatActivity implements EasyPe
                     @Override
                     public void run() {
 
-                        Toast.makeText(getBaseContext(),"خطا در ارسال",Toast.LENGTH_SHORT).show();
+                        error_message_dialog("اوه..." , "خطا در ارسال اطلاعات");
+                        //Toast.makeText(getBaseContext(),"خطا در ارسال",Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -860,12 +982,10 @@ public class CitizenReporterActivity extends AppCompatActivity implements EasyPe
 
     }
 
-
 //    @Override
 //    public void onBackPressed() {
-//        Intent intent = new Intent(CitizenReporterActivity.this,OptionActivity.class);
-//        CitizenReporterActivity.this.finish();
-//        OptionActivity.flag = true;
+//        Intent intent = new Intent(CitizenReporterActivity.this,MainListItemsActivity.class);
 //        startActivity(intent);
+//        finish();
 //    }
 }

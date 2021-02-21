@@ -2,7 +2,6 @@ package ir.farsirib.Fragment;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.squareup.picasso.Picasso;
 import com.synnapps.carouselview.CarouselView;
@@ -30,16 +31,16 @@ public class TvFreqFragment extends Fragment {
 
     String[] sampleTitles = {"مهارلو", "میانرود", "سعدی", "گلستان", "زیباشهر" ,"دروازه قرآن", "صدرا", "کوشک هزار", "", "" };
     String[] sampleNetworkImageURLs = {
-            "http://mob.shahreraz.com/Farsirib/img/frequency/tv/01.jpg",
-            "http://mob.shahreraz.com/Farsirib/img/frequency/tv/02.jpg",
-            "http://mob.shahreraz.com/Farsirib/img/frequency/tv/03.jpg",
-            "http://mob.shahreraz.com/Farsirib/img/frequency/tv/04.jpg",
-            "http://mob.shahreraz.com/Farsirib/img/frequency/tv/05.jpg",
-            "http://mob.shahreraz.com/Farsirib/img/frequency/tv/06.jpg",
-            "http://mob.shahreraz.com/Farsirib/img/frequency/tv/07.jpg",
-            "http://mob.shahreraz.com/Farsirib/img/frequency/tv/08.jpg",
-            "http://mob.shahreraz.com/Farsirib/img/frequency/tv/09.jpg",
-            "http://mob.shahreraz.com/Farsirib/img/frequency/tv/10.jpg",
+            "http://www.shahreraz.com/Farsirib/img/frequency/tv/01.jpg",
+            "http://www.shahreraz.com/Farsirib/img/frequency/tv/02.jpg",
+            "http://www.shahreraz.com/Farsirib/img/frequency/tv/03.jpg",
+            "http://www.shahreraz.com/Farsirib/img/frequency/tv/04.jpg",
+            "http://www.shahreraz.com/Farsirib/img/frequency/tv/05.jpg",
+            "http://www.shahreraz.com/Farsirib/img/frequency/tv/06.jpg",
+            "http://www.shahreraz.com/Farsirib/img/frequency/tv/07.jpg",
+            "http://www.shahreraz.com/Farsirib/img/frequency/tv/08.jpg",
+            "http://www.shahreraz.com/Farsirib/img/frequency/tv/09.jpg",
+            "http://www.shahreraz.com/Farsirib/img/frequency/tv/10.jpg",
     };
 
 

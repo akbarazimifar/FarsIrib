@@ -2,12 +2,14 @@ package ir.farsirib.Activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -16,11 +18,9 @@ import android.widget.TextView;
 
 import ir.farsirib.Fragment.AboutFragment;
 import ir.farsirib.Fragment.ElementsFragment;
-import ir.farsirib.Fragment.ItemOneFragment;
 import ir.farsirib.Fragment.ItemThreeFragment;
 import ir.farsirib.Fragment.ItemTwoFragment;
 import ir.farsirib.Fragment.LiveTvFragment;
-import ir.farsirib.Fragment.OptionFragment;
 import ir.farsirib.Fragment.ProgramFragment;
 import ir.farsirib.Fragment.TransitionListFragment;
 import ir.farsirib.R;

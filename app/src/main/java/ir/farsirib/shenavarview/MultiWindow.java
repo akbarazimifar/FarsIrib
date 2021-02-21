@@ -21,17 +21,17 @@ import java.util.List;
 /**
  * This implementation provides multiple windows. You may extend this class or
  * use it as a reference for a basic foundation for your own windows.
- * 
+ *
  * <p>
  * Functionality includes system window decorators, moveable, resizeable,
  * hideable, closeable, and bring-to-frontable.
- * 
+ *
  * <p>
  * The persistent notification creates new windows. The hidden notifications
  * restores previously hidden windows.
- * 
+ *
  * @author Mark Wei <markwei@gmail.com>
- * 
+ *
  */
 public class MultiWindow extends StandOutWindow {
 
@@ -62,8 +62,8 @@ public class MultiWindow extends StandOutWindow {
 
 	// every window is initially same size
 	@Override
-	public StandOutLayoutParams getParams(int id, Window window) {
-		return new StandOutLayoutParams(id, 400, 300,
+	public StandOutLayoutParams getParams(int id,int type, Window window) {
+		return new StandOutLayoutParams(id,type, 400, 300,
 				StandOutLayoutParams.AUTO_POSITION,
 				StandOutLayoutParams.AUTO_POSITION, 100, 100);
 	}

@@ -40,7 +40,7 @@
                 android:background="#ff9000"
                 android:layout_below="@+id/customCarouselView">
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/main_page_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -88,7 +88,7 @@
                     android:layout_gravity="center">
                 </ProgressBar>
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/kashane_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -145,7 +145,7 @@
                     android:layout_gravity="center">
                 </ProgressBar>
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/khosha_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

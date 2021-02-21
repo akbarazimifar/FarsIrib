@@ -2,7 +2,6 @@ package ir.farsirib.Fragment;
 
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,9 +10,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +22,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,6 @@ import java.util.List;
 import ir.farsirib.Activity.MainActivity;
 import ir.farsirib.Activity.OptionActivity;
 import ir.farsirib.Activity.TransitionDetailActivity;
-import ir.farsirib.Activity.UpdateCheckActivity;
 import ir.farsirib.Adapter.OptionRecyclerViewAdapter;
 import ir.farsirib.Model.OptionItemObject;
 import ir.farsirib.R;

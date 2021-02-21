@@ -1,16 +1,11 @@
 package ir.farsirib.Activity;
 
 import ir.farsirib.Database.DatabaseAssets;
-import ir.farsirib.Fragment.CyberspaceFragment;
-import ir.farsirib.Fragment.ElementsFragment;
 import ir.farsirib.Fragment.ItemOneFragment;
 import ir.farsirib.Fragment.ItemThreeFragment;
 import ir.farsirib.Fragment.ItemTwoFragment;
-import ir.farsirib.Fragment.LiveTvFragment;
 import ir.farsirib.Fragment.MusicFragment;
 import ir.farsirib.Fragment.NewsFragment;
-import ir.farsirib.Fragment.OptionFragment;
-import ir.farsirib.Fragment.PostCommentFragment;
 import ir.farsirib.Fragment.ProgramFragment;
 import ir.farsirib.Fragment.RavabetFragment;
 import ir.farsirib.Fragment.TechnicalFragment;
@@ -27,13 +22,14 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.core.app.ActivityCompat;
+
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -44,7 +40,7 @@ import java.io.IOException;
 
 import ir.farsirib.R;
 
-public class MainActivity extends FragmentActivity implements View.OnClickListener{
+public class MainActivity extends Main2Activity implements View.OnClickListener{
 
     private ResideMenu resideMenu;
     private ResideMenuItem itemHome;
@@ -71,8 +67,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-    //    allowAccessAlert();
+//        FrameLayout content_frame = findViewById(R.id.content_frame);
+//        getLayoutInflater().inflate(R.layout.activity_main,content_frame);
+
         myContext = getApplicationContext();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -132,19 +129,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     headerTitle.setText("واحد موسیقی مرکز فارس");
                     break;
                 case 3:
-                    changeFragment(new NewsFragment().newInstance());
+                    changeFragment(NewsFragment.newInstance());
                     headerTitle.setText("خبر مرکز فارس");
                     break;
                 case 4:
                     Intent intent = new Intent(MainActivity.this,CitizenReporterActivity.class);
                     MainActivity.this.finish();
+                    intent.putExtra("title","شهروند خبرنگار" );
                     startActivity(intent);
-                    headerTitle.setText("شهروند خبرنگار");
                     break;
-//                case 5:
-//                    changeFragment(PostCommentFragment.newInstance());
-//                    headerTitle.setText("ارسال نظر");
-//                    break;
                 case 5:
                     changeFragment(TechnicalFragment.newInstance());
                     headerTitle.setText("فنی - فرکانس های پخش");
@@ -153,18 +146,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     changeFragment(RavabetFragment.newInstance());
                     headerTitle.setText("پل های ارتباطی");
                     break;
-//                case 8:
-//                    changeFragment(new CyberspaceFragment());
-//                    headerTitle.setText("فضای مجازی مرکز فارس");
-//                    break;
-//                case 9:
-//                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
-//                    changeFragment(TabloFragment.newInstance());
-//                    headerTitle.setText("تابلو اعلانات مرکز فارس");
-//                    break;
                 case 7:
-                    changeFragment(new LiveTvFragment());
-                    headerTitle.setText("پخش زنده شبکه های تلویزیونی");
+                    changeFragment(new ProgramFragment("MainListItemsActivity"));
+                    headerTitle.setText("برنامه های سیما");
                     break;
             }
         }
@@ -219,14 +203,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void setUpMenu() {
-    	
+
         resideMenu = new ResideMenu(this);
         resideMenu.setBackground(R.drawable.menu_background);
         resideMenu.attachToActivity(this);
         resideMenu.setShadowVisible(true);
         resideMenu.setHeaderView(findViewById(R.id.actionbar));
         resideMenu.setMenuListener(menuListener);
-        //valid scale factor is between 0.0f and 1.0f. leftmenu'width is 150dip. 
+        //valid scale factor is between 0.0f and 1.0f. leftmenu'width is 150dip.
         resideMenu.setScaleValue(0.6f);
 
         itemHome     = new ResideMenuItem(this, R.drawable.ic_home,     "خانه");
@@ -249,7 +233,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         resideMenu.addMenuItem(itemList2);
      //   resideMenu.addMenuItem(itemList3);
     //    resideMenu.addMenuItem(itemList4);
-        
+
         findViewById(R.id.title_bar_left_menu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

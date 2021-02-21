@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/imageView11"
                 android:text="Test"
-                android:textSize="40dp"
+                android:textSize="26dp"
                 android:gravity="center"
                 android:textColor="#000000" />
     </RelativeLayout>

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--suppress ALL -->
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="fragment_text">
@@ -38,7 +39,25 @@
         <item name="android:paddingRight">5dp</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar"></style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+        <item name="android:itemTextAppearance">@style/TextAppearance</item>
+    </style>
+
+    <style name="TextAppearance" parent="@android:style/Widget.Holo.Light.TextView">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
+        <item name="android:popupBackground">@color/indigo_transparent</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textDirection">rtl</item>
+        <item name="android:gravity">right</item>
+        <item name="android:layoutDirection">rtl</item>
+        <item name="android:layout_gravity">right</item>
+        <item name="android:textAlignment">center</item>
+    </style>
 
     <style name="AppThemeTrans" parent="@style/AppTheme">
         <item name="android:windowIsTranslucent">true</item>
@@ -77,6 +96,11 @@
         <!--<item name="android:background">#90fcfbfb</item>-->
         <!--<item name="android:fontFamily" tools:targetApi="o">sans-serif-thin</item>-->
         <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="NavigationStyle">
+        <item name="android:textSize">18dp</item>
+        <item name="android:typeface">monospace</item>
     </style>
 
 

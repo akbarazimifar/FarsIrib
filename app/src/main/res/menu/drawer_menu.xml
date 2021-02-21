@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mnu_main"
+        android:icon="@drawable/ic_home"
+        android:title="خانه" />
+
+
+    <item
+        android:id="@+id/mnu_old_app"
+        android:icon="@drawable/ic_eye"
+        android:title="شبکه فارس در یک نگاه" />
+
+
+    <item
+        android:id="@+id/mnu_account"
+        android:icon="@drawable/ic_account_circle_black_24dp"
+        android:title="حساب کاربری" />
+
+    <!--<item-->
+    <!--android:id="@+id/mnu_favorite"-->
+    <!--android:icon="@drawable/bookmark1"-->
+    <!--android:title="علاقه مندی ها" />-->
+
+
+    <item
+        android:id="@+id/mnu_share"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="اشتراک گذاری" />
+
+
+</menu>

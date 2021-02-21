@@ -3,10 +3,12 @@ package ir.farsirib.Fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
 
 import ir.farsirib.Activity.MainActivity;
 import ir.farsirib.Activity.OptionActivity;

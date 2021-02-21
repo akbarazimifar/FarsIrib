@@ -6,5 +6,5 @@
         android:state_checked="true"/>
     <item android:color="@color/white_trans"
         android:state_checked="false"/>
-    <item android:color="@color/white_trans"/>
+    <item android:color="@color/white_trans" />
 </selector>

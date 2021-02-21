@@ -11,6 +11,8 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 public interface VideoInterface {
     @Multipart
-    @POST("http://www.mob.shahreraz.com/Farsirib/webservice/videos/fileUpload.php")
+//    @POST("https://farsirib.cloud/Farsirib/webservice/videos/fileUpload.php")
+    @POST("http://shahreraz.com/Farsirib/webservice/videos/fileUpload.php")
+    //@POST("http://www.mob.shahreraz.com/club/app/videos/fileUpload.php")
     Call<ResultObject> uploadVideoToServer(@Part MultipartBody.Part video);
 }

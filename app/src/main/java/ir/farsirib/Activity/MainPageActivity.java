@@ -1,38 +1,26 @@
 package ir.farsirib.Activity;
 
 import android.Manifest;
-import android.annotation.TargetApi;
-import android.app.ActivityManager;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -52,23 +40,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import ir.farsirib.Adapter.BarnameListAdapter;
 import ir.farsirib.Adapter.DBAdapter;
 import ir.farsirib.Adapter.MainPageRecyclerViewAdapter;
-import ir.farsirib.Adapter.ProgramRecyclerViewAdapter;
 import ir.farsirib.Adapter.SpecialProgramRecyclerViewAdapter;
 import ir.farsirib.Database.DatabaseAssets;
 import ir.farsirib.Model.barname;
 import ir.farsirib.Model.program;
 import ir.farsirib.R;
 import ir.farsirib.Webservice.GetJson;
-import ir.farsirib.shenavarlib.StandOutWindow;
-import ir.farsirib.shenavarview.QueryPreferences;
-import ir.farsirib.shenavarview.Video;
 import ir.farsirib.utils.MainPageXml;
 import ir.farsirib.utils.Rss;
-
-import static java.security.AccessController.getContext;
 
 public class MainPageActivity extends AppCompatActivity {
 
@@ -94,6 +75,7 @@ public class MainPageActivity extends AppCompatActivity {
     DatabaseAssets mydatabase;
     RecyclerView rView1, rView2;
     private static final int REQUEST_WRITE_STORAGE = 112;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +134,9 @@ public class MainPageActivity extends AppCompatActivity {
 
                 GetRSSDataTask3 task3 = new GetRSSDataTask3();
                 task3.execute();
+
+
+
     }
 
     private void allowAccessAlert() {
@@ -246,14 +231,14 @@ public class MainPageActivity extends AppCompatActivity {
     private List<program> getAllItemList() {
 
         List<program> allItems = new ArrayList<program>();
-        allItems.add(new program("صدا", "http://www.mob.shahreraz.com/Farsirib/img/MainPage/seda.png", R.mipmap.ic_radio, "برنامه خانواده سیمای فارس شنبه تا چهارشنبه ساعت 10"));
-        allItems.add(new program("سیما", "http://www.mob.shahreraz.com/Farsirib/img/MainPage/sima.png", R.drawable.ph_2, "جمعه ها ساعت 10 صبح از شبکه فارس و شبکه شما"));
-        allItems.add(new program("موسیقی", "http://www.mob.shahreraz.com/Farsirib/img/MainPage/moseghi.png", R.drawable.ph_3, "برنامه کودک سیمای فارس شنبه تا چهارشنبه ساعت 16"));
-        allItems.add(new program("خبر", "http://www.mob.shahreraz.com/Farsirib/img/MainPage/khabar.png", R.drawable.ph_4, "برنامه زنده شبانه شنبه تا چهارشنبه ساعت 22"));
-        allItems.add(new program("شهروند خبرنگار", "http://www.mob.shahreraz.com/Farsirib/img/MainPage/shahrvand.png", R.drawable.ph_5, "برنامه زنده صبحگاهی سیمای فارس شنبه تا چهارشنبه ساعت 7:45"));
-        allItems.add(new program("فرکانس پخش", "http://www.mob.shahreraz.com/Farsirib/img/MainPage/fanni.png", R.drawable.ph_6, "برنامه گفتگو شنبه ها ساعت 21 از سیمای فارس"));
-        allItems.add(new program("پل های ارتباطی", "http://www.mob.shahreraz.com/Farsirib/img/MainPage/ravabet.png", R.drawable.ph_7, "یکشنبه ، سه شنبه ، پنجشنبه ساعت 21"));
-        allItems.add(new program("پخش زنده شبکه ها", "http://www.mob.shahreraz.com/Farsirib/img/MainPage/live.png", R.drawable.ph_8, "شنبه تا سه شنبه ساعت 18"));
+        allItems.add(new program("صدا", "http://www.shahreraz.com/Farsirib/img/MainPage/seda.png", R.mipmap.ic_radio, "برنامه خانواده سیمای فارس شنبه تا چهارشنبه ساعت 10"));
+        allItems.add(new program("سیما", "http://www.shahreraz.com/Farsirib/img/MainPage/sima.png", R.drawable.ph_2, "جمعه ها ساعت 10 صبح از شبکه فارس و شبکه شما"));
+        allItems.add(new program("موسیقی", "http://www.shahreraz.com/Farsirib/img/MainPage/moseghi.png", R.drawable.ph_3, "برنامه کودک سیمای فارس شنبه تا چهارشنبه ساعت 16"));
+        allItems.add(new program("خبر", "http://www.shahreraz.com/Farsirib/img/MainPage/khabar.png", R.drawable.ph_4, "برنامه زنده شبانه شنبه تا چهارشنبه ساعت 22"));
+        allItems.add(new program("شهروند خبرنگار", "http://www.shahreraz.com/Farsirib/img/MainPage/shahrvand.png", R.drawable.ph_5, "برنامه زنده صبحگاهی سیمای فارس شنبه تا چهارشنبه ساعت 7:45"));
+        allItems.add(new program("فرکانس پخش", "http://www.shahreraz.com/Farsirib/img/MainPage/fanni.png", R.drawable.ph_6, "برنامه گفتگو شنبه ها ساعت 21 از سیمای فارس"));
+        allItems.add(new program("پل های ارتباطی", "http://www.shahreraz.com/Farsirib/img/MainPage/ravabet.png", R.drawable.ph_7, "یکشنبه ، سه شنبه ، پنجشنبه ساعت 21"));
+       // allItems.add(new program("پخش زنده شبکه ها", "http://www.mob.shahreraz.com/mob/Farsirib/img/MainPage/live.png", R.drawable.ph_8, "شنبه تا سه شنبه ساعت 18"));
 
         return allItems;
     }
@@ -384,7 +369,7 @@ public class MainPageActivity extends AppCompatActivity {
 
             GetJson getJson = new GetJson();
 
-            //result = getJson.JsonRequest("http://www.mob.shahreraz.com/Farsirib/webservice/showBarnameSection.php?q="+barname_id);
+            //result = getJson.JsonRequest("http://www.mob.shahreraz.com/mob/Farsirib/webservice/showBarnameSection.php?q="+barname_id);
             result = getJson.JsonRequest("http://www.mob.farsirib.ir/index.php?q=" + barname_id);
 
             return null;
@@ -450,7 +435,7 @@ public class MainPageActivity extends AppCompatActivity {
 
             GetJson getJson = new GetJson();
 
-            //result = getJson.JsonRequest("http://www.mob.shahreraz.com/Farsirib/webservice/showBarnameSection.php?q="+barname_id);
+            //result = getJson.JsonRequest("http://www.mob.shahreraz.com/mob/Farsirib/webservice/showBarnameSection.php?q="+barname_id);
             result2 = getJson.JsonRequest("http://www.mob.farsirib.ir/index.php?q=" + barname_id2);
 
             return null;

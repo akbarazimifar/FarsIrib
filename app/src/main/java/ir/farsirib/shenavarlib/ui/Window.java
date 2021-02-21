@@ -1,8 +1,10 @@
 package ir.farsirib.shenavarlib.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -26,6 +28,9 @@ import ir.farsirib.R;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import static android.view.WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+import static android.view.WindowManager.LayoutParams.TYPE_PHONE;
+
 public class Window extends FrameLayout{
 	@Override
 	public void onConfigurationChanged(Configuration newConfiguration){
@@ -44,6 +49,7 @@ public class Window extends FrameLayout{
 	static final String TAG = "Window";
 	public Class<? extends StandOutWindow> cls;
 	public int id;
+	public int type;
 	public int visibility;
 	public boolean focused;
 	public StandOutWindow.StandOutLayoutParams originalParams;
@@ -63,6 +69,7 @@ public class Window extends FrameLayout{
 		mContext = null;
 	}
 
+	@SuppressLint("ClickableViewAccessibility")
 	public Window(final StandOutWindow context, final int id) {
 		super(context);
 		context.setTheme(context.getThemeStyle());
@@ -72,7 +79,11 @@ public class Window extends FrameLayout{
 
 		this.cls = context.getClass();
 		this.id = id;
-		this.originalParams = context.getParams(id, this);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+			type = TYPE_APPLICATION_OVERLAY;
+		else
+			type = TYPE_PHONE;
+		this.originalParams = context.getParams(id, type,this);
 		this.flags = context.getFlags(id);
 		this.touchInfo = new TouchInfo();
 		touchInfo.ratio = (float) originalParams.width / originalParams.height;
@@ -319,6 +330,7 @@ public class Window extends FrameLayout{
 			@Override
 			public void onClick(View v) {
 				mContext.close(id);
+
 			}
 		});
 		View titlebar = decorations.findViewById(R.id.titlebar);

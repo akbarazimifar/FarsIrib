@@ -5,7 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import androidx.fragment.app.Fragment;
+
 import ir.farsirib.Activity.DetailActivity;
 import ir.farsirib.Activity.FullScrVideoActivity;
 import ir.farsirib.Activity.MainActivity;
@@ -23,9 +25,7 @@ import ir.farsirib.Activity.OptionActivity;
 import ir.farsirib.Activity.VideoPlayerActivity;
 import ir.farsirib.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 @SuppressLint("ValidFragment")
 public class FullScrVideoFragment extends Fragment {
 

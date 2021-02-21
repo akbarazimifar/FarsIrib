@@ -7,8 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +26,9 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
@@ -303,7 +305,7 @@ public class TransitionDetailFragment extends Fragment {
 
             GetJson getJson = new GetJson();
 
-            //result = getJson.JsonRequest("http://www.mob.shahreraz.com/Farsirib/webservice/showBarnameSection.php?q="+barname_id);
+            //result = getJson.JsonRequest("http://www.mob.shahreraz.com/mob/Farsirib/webservice/showBarnameSection.php?q="+barname_id);
             result = getJson.JsonRequest("http://www.mob.farsirib.ir/index.php?q=" + barname_id);
 
             return null;

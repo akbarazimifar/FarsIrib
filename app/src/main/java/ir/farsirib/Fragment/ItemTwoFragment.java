@@ -26,7 +26,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +35,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.MediaController;
 import android.widget.VideoView;
+
+import androidx.fragment.app.Fragment;
 
 import ir.farsirib.Activity.FullScrVideoActivity;
 import ir.farsirib.Activity.MainActivity;
@@ -74,17 +76,15 @@ public class ItemTwoFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView =  inflater.inflate(R.layout.fragment_item_two, container, false);
 
-        final String videoURL = "http://live2.shahreraz.ir/nama/nama.m3u8";
-        //final String videoURL = "http://192.168.4.68:8080/live/live.m3u8";
+        final String videoURL = "http://livecdn1.irib.ir/channel-live/smil:rn-fars/playlist.m3u8";
         videoView = rootView.findViewById(R.id.video_view1);
 
         mediaController = new MediaController(context);
-        Uri uri = Uri.parse("http://live2.shahreraz.ir/nama/nama.m3u8");
-       // Uri uri = Uri.parse( "http://192.168.4.68:8080/live/live.m3u8");
+        Uri uri = Uri.parse("http://livecdn1.irib.ir/channel-live/smil:rn-fars/playlist.m3u8");
         videoView.setVideoURI(uri);
         videoView.setMediaController(mediaController);
-        videoView.pause();
-        videoView.stopPlayback();
+        //videoView.pause();
+        //videoView.stopPlayback();
         videoView.start();
 
         fullScr_btn = rootView.findViewById(R.id.fullScr_btn);
@@ -140,7 +140,7 @@ public class ItemTwoFragment extends Fragment {
         webView.clearCache(true);
         webView.getSettings().setAppCacheEnabled(false);
         webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-        webView.loadUrl("http://www.shahreraz.com/mob/FarsApp/index.php/kondaktor/fetch_data/2");
+        webView.loadUrl("http://77.36.166.137/mob/FarsApp/index.php/kondaktor/fetch_data/2");
 
         return rootView;
     }

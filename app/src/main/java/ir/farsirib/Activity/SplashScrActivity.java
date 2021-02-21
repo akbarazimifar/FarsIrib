@@ -1,7 +1,6 @@
 package ir.farsirib.Activity;
 
 import android.animation.AnimatorSet;
-import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -18,9 +17,9 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.provider.Settings;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -47,7 +46,7 @@ public class SplashScrActivity extends AppCompatActivity {
     IUpdateCheckService service;
     UpdateServiceConnection connection;
     private static final String TAG = "UpdateCheck";
-    private static final int SPLASH_DISPLAY_TIME = 4000;
+    private static final int SPLASH_DISPLAY_TIME = 1000;//4000;
     ProgressBar progressBar;
     TextView textView;
     private Animation animation;
@@ -92,7 +91,7 @@ public class SplashScrActivity extends AppCompatActivity {
 
 
 
-                        Intent intent = new Intent(SplashScrActivity.this,MainPageActivity.class);
+                        Intent intent = new Intent(SplashScrActivity.this,MainListItemsActivity.class);
                         startActivity(intent);
                         SplashScrActivity.this.finish();
 
@@ -170,7 +169,7 @@ public class SplashScrActivity extends AppCompatActivity {
 
 
 
-                                Intent intent = new Intent(SplashScrActivity.this,MainPageActivity.class);
+                                Intent intent = new Intent(SplashScrActivity.this,MainListItemsActivity.class);
                                 startActivity(intent);
                                 SplashScrActivity.this.finish();
 
@@ -283,13 +282,14 @@ public class SplashScrActivity extends AppCompatActivity {
             intent.setPackage("com.farsitel.bazaar");
             // Adds the back stack for the Intent (but not the Intent itself)
             stackBuilder.addParentStack(MainActivity.class);
+           // stackBuilder.addParentStack(Base2Activity.class);
             // Adds the Intent that starts the Activity to the top of the stack
             stackBuilder.addNextIntent(intent);
 
             PendingIntent contentIntent = stackBuilder.getPendingIntent(0,
                     PendingIntent.FLAG_UPDATE_CURRENT);
 
-            android.support.v4.app.NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher)
+            androidx.core.app.NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher)
                     .setContentTitle("بروزرسانی")
                     .setContentText("برنامه رو بروزرسانی کنید");
 

@@ -4,13 +4,15 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
+
+import androidx.fragment.app.Fragment;
 
 import ir.farsirib.R;
 
@@ -25,7 +27,7 @@ public class ListFragment extends Fragment {
     private ListView listView;
     private ir.farsirib.Adapter.ListAdapter mAdapter;
     int barname_id ;
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.fragment_list, container, false);
@@ -47,13 +49,13 @@ public class ListFragment extends Fragment {
     	} else{
         	width = display.getWidth();
     	}
-    	
+
     	mAdapter = new ir.farsirib.Adapter.ListAdapter(getActivity(), getListData(), width);
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                
+
                 ListItem item = (ListItem) listView.getAdapter().getItem(i);
                 switch (i)
                 {

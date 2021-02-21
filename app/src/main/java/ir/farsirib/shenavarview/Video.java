@@ -27,6 +27,9 @@ import ir.farsirib.shenavarlib.ui.Window;
 
 import java.io.IOException;
 
+import static android.view.WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+import static android.view.WindowManager.LayoutParams.TYPE_PHONE;
+
 public class Video extends StandOutWindow{
 
 	private MediaPlayer mMediaPlayer;
@@ -55,11 +58,11 @@ public class Video extends StandOutWindow{
 		mPreview = (TextureView) view.findViewById(R.id.surface);
 
 
-		if (Build.VERSION.SDK_INT < 14){
+		if (Build.VERSION.SDK_INT <Build.VERSION_CODES.HONEYCOMB){
 			mPreview.setVisibility(View.GONE);
 			videoview.setVisibility(View.VISIBLE);
 			//Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.asl);
-            Uri uri = Uri.parse(getVidoUrl());
+			Uri uri = Uri.parse(getVidoUrl());
 			videoview.setVideoURI(uri);
 			videoview.seekTo(getMiliSecond());
 			videoview.start();
@@ -73,6 +76,9 @@ public class Video extends StandOutWindow{
 
 				@Override
 				public boolean onSurfaceTextureDestroyed(SurfaceTexture surfaceTexture) {
+					mMediaPlayer.stop();
+//					mMediaPlayer.pause();
+//					videoview.pause();
 					return true;
 				}
 
@@ -87,7 +93,7 @@ public class Video extends StandOutWindow{
 					try {
 						mMediaPlayer= new MediaPlayer();
 						//mMediaPlayer.setDataSource(getApplicationContext(), Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.asl));
-                        mMediaPlayer.setDataSource(getApplicationContext(), Uri.parse(getVidoUrl()));
+						mMediaPlayer.setDataSource(getApplicationContext(), Uri.parse(getVidoUrl()));
 						mMediaPlayer.setSurface(s);
 						mMediaPlayer.setLooping(true);
 						mMediaPlayer.prepare();
@@ -109,6 +115,7 @@ public class Video extends StandOutWindow{
 							public void onPrepared(MediaPlayer mp) {
 								mp.start();
 							}
+
 						});
 						mMediaPlayer.setOnVideoSizeChangedListener(new MediaPlayer.OnVideoSizeChangedListener() {
 							@Override
@@ -136,14 +143,14 @@ public class Video extends StandOutWindow{
 	}
 
 	@Override
-	public StandOutLayoutParams getParams(int id, Window window) {
+	public StandOutLayoutParams getParams(int id,int type, Window window) {
 		double vid_width, vid_height, hpos, vpos;
 		double ff = 85;
 		vid_width = ((ff/100) * getScreenSize()[0]);
 		vid_height = ((ff/100) * getScreenSize()[0]);
 		hpos = ((1-(ff/100))/2)* getScreenSize()[0];
 		vpos = ((1-(ff/100))/2)* getScreenSize()[0];
-		return new StandOutLayoutParams(id, (int) vid_width, (int) vid_height,
+		return new StandOutLayoutParams(id,type ,(int) vid_width, (int) vid_height,
 				(int) hpos,
 				(int) vpos, 100, 100);
 	}

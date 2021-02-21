@@ -2,11 +2,9 @@ package ir.farsirib.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +17,8 @@ import java.util.Collections;
 import java.util.List;
 
 import ir.farsirib.Activity.MainActivity;
-import ir.farsirib.Activity.MainPageActivity;
-import ir.farsirib.Activity.TransitionDetailActivity;
 import ir.farsirib.Model.program;
 import ir.farsirib.R;
-import ir.farsirib.Setting.Default_Station;
 
 /**
  * Created by alireza on 20/02/2017.

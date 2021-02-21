@@ -5,16 +5,16 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
+import com.google.android.material.textfield.TextInputLayout;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.DialogFragment;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -164,7 +164,7 @@ public class PostComentDialogFragment extends DialogFragment {
             try
             {
                 HttpClient httpclient=new DefaultHttpClient();
-                HttpPost httppost=new HttpPost("http://www.mob.shahreraz.com/Farsirib/webservice/command.php");
+                HttpPost httppost=new HttpPost("http://www.shahreraz.com/mob/Farsirib/webservice/command.php");
                 httppost.setEntity(new UrlEncodedFormEntity(namevaluepairs, HTTP.UTF_8));
                 HttpResponse httpresponse=httpclient.execute(httppost);
 

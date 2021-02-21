@@ -26,7 +26,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,8 @@ import android.webkit.WebView;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
+import androidx.fragment.app.Fragment;
+
 import ir.farsirib.Activity.FullScrVideoActivity;
 import ir.farsirib.R;
 import ir.farsirib.shenavarlib.StandOutWindow;
@@ -44,10 +47,13 @@ import ir.farsirib.shenavarview.Video;
 import ir.farsirib.utils.UICircularImage;
 
 public class ItemThreeFragment extends Fragment {
+   // tcking.github.com.giraffeplayer2.VideoView videoView;
     VideoView videoView;
     MediaController mediaController;
     Context context;
     UICircularImage fullScr_btn,multiWin_btn;
+    private boolean isContinuously = true;
+    private Uri uri;
 
     public static ItemThreeFragment newInstance() {
         ItemThreeFragment fragment = new ItemThreeFragment();
@@ -67,17 +73,57 @@ public class ItemThreeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_item_three, container, false);
 
         final String videoURL = "http://cdn1.live.irib.ir:1935/channel-live/smil:fars/playlist.m3u8";
-        //final String videoURL = "http://s2.tv.asandl.com:1935/e-tv/fars-300k.stream/playlist.m3u8";
         videoView = rootView.findViewById(R.id.video_view1);
+//        videoView.setVideoPath(videoURL).getPlayer().start();
 
         mediaController = new MediaController(context);
-        //Uri uri = Uri.parse("http://s10.telewebion.com:1935/devices/fars-300k.stream/playlist.m3u8?wmsAuthSign=aXNfZnJlZT0xJnNlcnZlcl90aW1lPTEwLzI2LzIwMTUgMTE6MjY6MzkgQU0maGFzaF92YWx1ZT1NamtPMjhqVjZjR1RmZE9rQ2NCSXdnPT0mdmFsaWRtaW51dGVzPTYwMDA=");
         Uri uri = Uri.parse(videoURL);
         videoView.setVideoURI(uri);
         videoView.setMediaController(mediaController);
         videoView.start();
 
 
+//        //standalone player
+//        VideoInfo videoInfo = new VideoInfo(Uri.parse(videoURL))
+//                .setTitle("test video") //config title
+//                .setAspectRatio(aspectRatio) //aspectRatio
+//                .setShowTopBar(true) //show mediacontroller top bar
+//                .setPortraitWhenFullScreen(true);//portrait when full screen
+//
+//        GiraffePlayer.play(rootView.getContext(), videoInfo);
+//
+
+
+
+//        mediaController = new MediaController(context);
+//        Uri uri = Uri.parse(videoURL);
+//        videoView.setVideoURI(uri);
+//        videoView.setMediaController(mediaController);
+       // videoView.start();
+//
+//        try {
+//            // Start the MediaController
+//            MediaController mediacontroller = new MediaController(
+//                    context);
+//            mediacontroller.setAnchorView(videoView);
+//            // Get the URL from String VideoURL
+//            Uri video = Uri.parse(videoURL);
+//            videoView.setMediaController(mediacontroller);
+//            videoView.setVideoURI(video);
+//
+//        } catch (Exception e) {
+//        //    Log.e("Error", e.getMessage());
+//            e.printStackTrace();
+//        }
+//
+//        videoView.requestFocus();
+//        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//            // Close the progress bar and play the video
+//            public void onPrepared(MediaPlayer mp) {
+//               // pDialog.dismiss();
+//                videoView.start();
+//            }
+//        });
 
         fullScr_btn = rootView.findViewById(R.id.fullScr_btn);
 
@@ -85,7 +131,7 @@ public class ItemThreeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-             //   videoView.stopPlayback();
+  //              videoView.stopPlayback();
 
                 Intent intent = new Intent(getContext(), FullScrVideoActivity.class);
 
@@ -134,8 +180,8 @@ public class ItemThreeFragment extends Fragment {
         webView.clearCache(true);
         webView.getSettings().setAppCacheEnabled(false);
         webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-        //webView.loadUrl("http://www.shahreraz.com/mob/kondaktor/index.php/kondaktor/fetch_data/1");
-        webView.loadUrl("http://www.shahreraz.com/mob/FarsApp/index.php/kondaktor/fetch_data/1");
+        //webView.loadUrl("http://www.mob.shahreraz.com/mob/kondaktor/index.php/kondaktor/fetch_data/1");
+        webView.loadUrl("http://77.36.166.137/mob/FarsApp/index.php/kondaktor/fetch_data/1");
 
         return rootView;
     }
@@ -144,7 +190,7 @@ public class ItemThreeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        videoView.start();
+    //    videoView.start();
     }
 
 

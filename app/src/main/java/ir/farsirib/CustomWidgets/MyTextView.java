@@ -1,11 +1,13 @@
 package ir.farsirib.CustomWidgets;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
 
+@SuppressLint("AppCompatCustomView")
 public class MyTextView extends TextView {
 
     public MyTextView(Context context, AttributeSet attrs, int defStyle) {
