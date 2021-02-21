@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.synnapps.carouselview.CarouselView;
@@ -40,6 +41,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import ir.farsirib.Adapter.DBAdapter;
 import ir.farsirib.Adapter.MainPageRecyclerViewAdapter;
 import ir.farsirib.Adapter.SpecialProgramRecyclerViewAdapter;
@@ -250,45 +252,58 @@ public class MainPageActivity extends AppCompatActivity {
             MainPageXml rssReader = new MainPageXml();
             data = rssReader.parser();
 
+
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Log.e("Xml", data.toString());
+            if (data.size() != 0) {
+                Log.e("Xml", data.toString());
 
-            sampleTitles = new String[]{data.get(0).getTitle(), data.get(1).getTitle(), data.get(2).getTitle(), data.get(3).getTitle(), data.get(4).getTitle()};
-            sampleNetworkImageURLs = new String[]{
-                    data.get(0).getImg(),
-                    data.get(1).getImg(),
-                    data.get(2).getImg(),
-                    data.get(3).getImg(),
-                    data.get(4).getImg()
-            };
+                sampleTitles = new String[]{data.get(0).getTitle(), data.get(1).getTitle(), data.get(2).getTitle(), data.get(3).getTitle(), data.get(4).getTitle()};
+                sampleNetworkImageURLs = new String[]{
+                        data.get(0).getImg(),
+                        data.get(1).getImg(),
+                        data.get(2).getImg(),
+                        data.get(3).getImg(),
+                        data.get(4).getImg()
+                };
 
-            customCarouselView = findViewById(R.id.customCarouselView);
+                customCarouselView = findViewById(R.id.customCarouselView);
 
-            customCarouselView.setViewListener(viewListener);
+                customCarouselView.setViewListener(viewListener);
 
-            customCarouselView.setImageClickListener(new ImageClickListener() {
-                @Override
-                public void onClick(int position) {
+                customCarouselView.setImageClickListener(new ImageClickListener() {
+                    @Override
+                    public void onClick(int position) {
 
-                    String link = data.get(position).getLink();
-                    videoURL = "http://dppmedia.irib.ir/fars/media/" + link.substring(25, 29) + ".mp4";
-                    imgURL = data.get(position).getImg();
-                    barname_id = 5; // ویژه های سایت
-                    link_value = data.get(position).getLink();
-                    title = data.get(position).getTitle();
+                        String link = data.get(position).getLink();
+                        videoURL = "http://dppmedia.irib.ir/fars/media/" + link.substring(25, 29) + ".mp4";
+                        imgURL = data.get(position).getImg();
+                        barname_id = 5; // ویژه های سایت
+                        link_value = data.get(position).getLink();
+                        title = data.get(position).getTitle();
 
-                    new BackgroundWorker().execute();
+                        new BackgroundWorker().execute();
 
-                }
-            });
+                    }
+                });
 
-            customCarouselView.setPageCount(5);
-            customCarouselView.setSlideInterval(4000);
+                customCarouselView.setPageCount(5);
+                customCarouselView.setSlideInterval(4000);
+            } else
+
+            {
+                new SweetAlertDialog(MainPageActivity.this, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("اسلايدر ويژه هاي سايت")
+                        .setContentText("دسترسي به ويژه هاي سايت در این لحظه امكان پذير نمي باشد")
+                        .show();
+            }
+
+               // Toast.makeText(getApplicationContext(),"دسترسي به ويژه هاي سايت در این لحظه امكان پذير نمي باشد" + data , Toast.LENGTH_SHORT).show();
+
         }
 
 

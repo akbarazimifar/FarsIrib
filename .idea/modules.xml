@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FarsIrib.iml" filepath="$PROJECT_DIR$/FarsIrib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FarsIrib.iml" filepath="$PROJECT_DIR$/.idea/modules/FarsIrib.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/FarsIrib.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/FarsIrib.app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/carouselview/FarsIrib.carouselview.iml" filepath="$PROJECT_DIR$/.idea/modules/carouselview/FarsIrib.carouselview.iml" />
     </modules>

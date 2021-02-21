@@ -111,7 +111,7 @@ public class UGCActivity extends Main2Activity implements EasyPermissions.Permis
     String image_base64;
     private Button submit_bt;
     TextView account_tv;
-    private String address_image;
+    private String address_image="";
     private ImageView display_image_view;
     private JSONObject new_farsisho_UGC;
     private Spinner spinner;
@@ -383,15 +383,15 @@ public class UGCActivity extends Main2Activity implements EasyPermissions.Permis
 
                     try {
 
-                        new_farsisho_UGC.put("name",name_text.getText().toString().trim());
-                        new_farsisho_UGC.put("age",age_text.getText().toString().trim());
-                        new_farsisho_UGC.put("city",city_text.getText().toString().trim());
-                        new_farsisho_UGC.put("mobile",mobile_text.getText().toString().trim());
-                        new_farsisho_UGC.put("description",description_text.getText().toString().trim());
-                        new_farsisho_UGC.put("category",category_id);
-                        new_farsisho_UGC.put("image", address_image);
-                        new_farsisho_UGC.put("video",address_video);
-                        new_farsisho_UGC.put("id_category",id_category);
+                        new_farsisho_UGC.put("name",name_text.getText().toString().trim());Log.d("name",name_text.getText().toString().trim());
+                        new_farsisho_UGC.put("age",age_text.getText().toString().trim()); Log.d("age",age_text.getText().toString().trim());
+                        new_farsisho_UGC.put("city",city_text.getText().toString().trim()); Log.d("city",city_text.getText().toString().trim());
+                        new_farsisho_UGC.put("mobile",mobile_text.getText().toString().trim());Log.d("mobile",mobile_text.getText().toString().trim());
+                        new_farsisho_UGC.put("description",description_text.getText().toString().trim());Log.d("description",description_text.getText().toString().trim());
+                        new_farsisho_UGC.put("category",category_id);Log.d("category",String.valueOf(category_id));
+                        new_farsisho_UGC.put("image", address_image);Log.d("image", address_image);
+                        new_farsisho_UGC.put("video",address_video);Log.d("video",address_video);
+                        new_farsisho_UGC.put("id_category",id_category);Log.d("id_category",String.valueOf(id_category));
 
                         new_farsisho_UGC.put("command","new_ugc");
 
@@ -603,7 +603,7 @@ public class UGCActivity extends Main2Activity implements EasyPermissions.Permis
             bm.compress(Bitmap.CompressFormat.JPEG, 90, bao);
 
             image_base64 = Base64.encodeToString(bao.toByteArray(), Base64.DEFAULT);
-
+            Log.d("upload","000000");
             new upload_image().execute();
         } else if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_VIDEO) {
@@ -658,19 +658,21 @@ public class UGCActivity extends Main2Activity implements EasyPermissions.Permis
             super.onPreExecute();
             pd.setMessage("در حال آپلود تصویر...");
             pd.show();
+            Log.d("upload","1111111");
         }
 
         @Override
         protected String doInBackground(Void... voids) {
 
-
+            Log.d("doin","222222");
             ArrayList<NameValuePair> namevaluepairs=new ArrayList<NameValuePair>();
             namevaluepairs.add(new BasicNameValuePair("image",image_base64));
 
             try{
-
+                Log.d("doin","333333");
                 HttpClient httpclient=new DefaultHttpClient();
                 HttpPost httppost=new HttpPost("http://www.shahreraz.com/club/app/command.php");
+                //HttpPost httppost=new HttpPost("http://77.36.166.137/club/app/command.php");
                 httppost.setEntity(new UrlEncodedFormEntity(namevaluepairs));
 
                 HttpResponse httpresponse=httpclient.execute(httppost);
@@ -683,11 +685,13 @@ public class UGCActivity extends Main2Activity implements EasyPermissions.Permis
 
                     if (!response.trim().equals("0")) {//upload ok
 
+                        Log.d("doin","4444444");
                         //address_images[current_image]=response.trim();
                         address_image =response.trim();
+                        Log.d("adrimg",address_image);
                     } else
                     {
-
+                        Log.d("doin","5555555");
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -760,6 +764,8 @@ public class UGCActivity extends Main2Activity implements EasyPermissions.Permis
         @Override
         protected String doInBackground(Void... voids) {
 
+            Log.d("send","1111111");
+
 
             ArrayList<NameValuePair> namevaluepairs=new ArrayList<NameValuePair>();
 
@@ -767,9 +773,10 @@ public class UGCActivity extends Main2Activity implements EasyPermissions.Permis
 
             try
             {
+                Log.d("send","2222222");
                 HttpClient httpclient=new DefaultHttpClient();
-                HttpPost httppost=new HttpPost("http://www.shahreraz.com/club/app/command.php");
-                //HttpPost httppost=new HttpPost("http://www.mob.shahreraz.com/mob/Farsirib/webservice/command.php");
+                HttpPost httppost=new HttpPost("http://shahreraz.com/club/app/command.php");
+//                HttpPost httppost=new HttpPost("http://77.36.166.137/club/app/command.php");
                 httppost.setEntity(new UrlEncodedFormEntity(namevaluepairs, HTTP.UTF_8));
                 HttpResponse httpresponse=httpclient.execute(httppost);
 
@@ -777,20 +784,23 @@ public class UGCActivity extends Main2Activity implements EasyPermissions.Permis
 
                 if (response.startsWith("<farsirib_app>")&&response.endsWith("</farsirib_app>")) {//response is valid
 
+                    Log.d("send","33333333");
+
                     response = response.replace("<farsirib_app>", "").replace("</farsirib_app>", "");
+                    Log.d("send","44444444");
 
-
-                    if(!response.trim().equals(""))
+                    if(response.trim().equals("ok"))
                     {
-                        final String finalResponse = response;
+                        Log.d("send","5555555");
+                        //final String finalResponse = response;
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
 
-                                int node_id = Integer.parseInt(finalResponse);
-
-
-                                empty_field(node_id);
+                             //   int node_id = Integer.parseInt(finalResponse);
+                                Log.d("send","666666666666");
+                                //empty_field(node_id);
+                                empty_field();
                             }
                         });
                     }
@@ -845,21 +855,30 @@ public class UGCActivity extends Main2Activity implements EasyPermissions.Permis
         }
     }
 
-    private void empty_field(int node_id) {
+    private void empty_field() {
 
         new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
                 .setTitleText("شبکه فارس")
                 .setContentText( "اطلاعات با موفقیت ارسال شد" )
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        address_image = "";
+                        address_video = "";
+                        name_text.setText("");
+                        age_text.setText("");
+                        description_text.setText("");
+                        display_image_view.setVisibility(View.GONE);
+                        displayRecordedVideo.setVisibility(View.GONE);
+                        name_text.requestFocus();
+                        finish();
+                    }
+                })
                 .show();
 
-        address_image = "";
-        address_video = "";
-        name_text.setText("");
-        age_text.setText("");
-        description_text.setText("");
-        display_image_view.setVisibility(View.GONE);
-        displayRecordedVideo.setVisibility(View.GONE);
-        name_text.requestFocus();
+
+
+
     }
 
     private String getRealPathFromURIPath(Uri contentURI, Activity activity) {
@@ -940,6 +959,7 @@ public class UGCActivity extends Main2Activity implements EasyPermissions.Permis
             try {
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpPost httppost = new HttpPost("http://www.shahreraz.com/club/app/command.php");
+                //HttpPost httppost = new HttpPost("http://77.36.166.137/club/app/command.php");
                 httppost.setEntity(new UrlEncodedFormEntity(namevaluepairs, HTTP.UTF_8));
 
                 HttpResponse httpresponse = httpclient.execute(httppost);
