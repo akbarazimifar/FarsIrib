@@ -3,10 +3,7 @@ package ir.farsirib.utils;
 
 import android.os.AsyncTask;
 import android.util.Log;
-<<<<<<< HEAD
 import android.widget.Toast;
-=======
->>>>>>> origin/master
 
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
@@ -33,17 +30,10 @@ public class MainPageXml {
 
         }
 
-<<<<<<< HEAD
         List<Rss> data=new ArrayList<>();
 
         int checker_img=0;
         Rss rss = new Rss();
-=======
-
-        List<Rss> data=new ArrayList<>();
-
-        int checker_img=0;
->>>>>>> origin/master
         int j;
 
         URL url = null;
@@ -53,7 +43,6 @@ public class MainPageXml {
         catch(Exception e) {
             Log.e("Xml", "error url");
         }
-<<<<<<< HEAD
             try {
 
 
@@ -97,52 +86,6 @@ public class MainPageXml {
             } catch (Exception e) {
                 Log.e("Xml", "xml errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
             }
-=======
-        try {
-
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = null;
-
-
-            doc = db.parse(new InputSource(url.openStream()));
-            NodeList nl = doc.getElementsByTagName("item");
-
-            for (int i = 0; i <10; i++) {
-                NodeList cur = nl.item(i).getChildNodes();
-
-                Rss rss = new Rss();
-                checker_img=0;
-                for ( j = 1; j <cur.getLength(); j++) {
-                    if (cur.item(j).getNodeName().equals("title")) {
-                        rss.setTitle(cur.item(j).getFirstChild().getNodeValue());
-
-                        Log.e("title", cur.item(j).getFirstChild().getNodeValue());
-                    }
-
-                    else if ((cur.item(j).getNodeName().equals("link"))) {
-
-                        rss.setLink(cur.item(j).getFirstChild().getNodeValue());
-                        Log.e("link", cur.item(j).getFirstChild().getNodeValue());
-
-                    }
-                    else if ((cur.item(j).getNodeName().equals("enclosure"))){
-                        String Img=cur.item(j).getAttributes().item(0).getTextContent();
-                        rss.setImg(cur.item(j).getAttributes().item(0).getTextContent());
-
-                        Log.e("image", cur.item(j).getAttributes().item(0).getTextContent());
-                        checker_img++;
-                    }
-                }
-                if( checker_img==0)
-                    rss.setImg("http://fars.irib.ir/image/layout_set_logo?img_id=750534&t=1506117034454");
-                data.add(rss);
-            }
-        }
-        catch (Exception e) {
-            Log.e("Xml", "xml errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
-        }
->>>>>>> origin/master
         return data;
     }
 
