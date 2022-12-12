@@ -2,7 +2,7 @@
 This app is about Live Streaming and Video on demand.
 
 Application features:
-1- Access to the program archive
+1- Access to the program archive \n
 2- Live broadcast of radio and television
 3- Access to the latest news
 4- Sending comments by audience 
@@ -14,5 +14,5 @@ Technical specifications of the application:
 2- 
 
 
-![image](https://user-images.githubusercontent.com/8382017/207105940-9fcb63f7-2ed3-4641-89df-d7ba07e9a83f.png)
+
 
