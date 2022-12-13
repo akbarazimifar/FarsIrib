@@ -1,6 +1,8 @@
 # FarsIrib
 This app is about Live Streaming and Video on demand.
 
+https://user-images.githubusercontent.com/8382017/207361393-4e50bf2d-0a97-4753-9914-275787b53c0c.mp4
+
 Technical specifications of the application:
 
 1- Design pages and activities based on fragments
